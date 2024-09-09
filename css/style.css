@@ -134,19 +134,36 @@ header {
     float: left;
 }
 
-/* Styling for the topics list container */
-.topics{
+.topics {
     width: 100%;
-    border: 1px dashed green;
-    height: 270px;
-    margin: 20px auto;
+    padding: 10px;
 }
 
-/* Title within the topics list */
-.content .topics-list-title {
+.topics-list-title {
     margin: 20px;
-    border: solid blue;
-    color: black;
+}
+
+.topic-name {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    padding: 10px; /* Padding inside each topic box */
+    border: 1px solid #ddd; /* Border around each topic box */
+    border-radius: 5px;
+}
+
+.topic-name h2 {
+    font-size: 18px; /* Font size for each topic item */
+    margin: 0; /* Remove default margin */
+}
+
+.topic-name h2 a {
+    text-decoration: none; /* Remove underline from links */
+    color: #d51abf; /* Color for the links */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.topic-name h2 a:hover {
+    color: #510b49; /* Darker color for the links on hover */
 }
 
 /* Individual post styling */
@@ -183,7 +200,6 @@ header {
 /* Title for recent posts section */
 .content .main-content .recent-post-title {
     margin: 20px;
-    border: solid red;
 }
 
 
