@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    height: 100%;
     padding: 0px;
     margin: 0px;
     background: #f6f6f6; 
@@ -21,19 +22,6 @@ a:hover {
     content: '';
     display: block;
     clear: both;
-}
-
-.btn {
-    padding: .5rem 1rem;
-    background: #006669;
-    color: white;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-}
-
-.btn:hover {
-    color: white !important;
-    background: #015c5f;
 }
 
 header {
@@ -122,6 +110,12 @@ header {
     transition: 0.5s;
 }
 
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Container for the main content area */
 .content {
     width: 90%;
@@ -134,37 +128,54 @@ header {
     float: left;
 }
 
-.topics {
-    width: 100%;
-    padding: 10px;
+.topics { /* Size of topics box */
+    width: 100%; 
+    padding: 10px; 
 }
 
-.topics-list-title {
-    margin: 20px;
+.topics-list-title { /* Formatting of title */
+    margin-bottom: 20px; 
+}
+
+.topic-container { /* Formatting of individual topics containers */
+    display: flex; /* Flexbox for horizontal layout */
+    flex-direction: row; /* Arrange items in a row */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+    gap: 10px; 
+    justify-content: center;
 }
 
 .topic-name {
-    display: flex; /* Flexbox for alignment */
+    display: inline-flex; /* Use inline-flex to fit snugly around content */
     align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
     padding: 10px; /* Padding inside each topic box */
     border: 1px solid #ddd; /* Border around each topic box */
-    border-radius: 5px;
+    border-radius: 20px; /* Rounded corners */
+    margin: 5px; /* Margin to add space between boxes */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .topic-name h2 {
     font-size: 18px; /* Font size for each topic item */
     margin: 0; /* Remove default margin */
+    text-align: center; /* Center text within each topic box */
 }
 
 .topic-name h2 a {
-    text-decoration: none; /* Remove underline from links */
     color: #d51abf; /* Color for the links */
     transition: color 0.3s ease; /* Smooth color transition on hover */
 }
 
-.topic-name h2 a:hover {
-    color: #510b49; /* Darker color for the links on hover */
+.topic-name:hover {
+    background-color: #d51abf; /* Background color on hover */
+    color: #ffffff; 
 }
+
+.topic-name:hover h2 a {
+    color: #ffffff; 
+}
+
 
 /* Individual post styling */
 .content .main-content .post {
@@ -187,19 +198,46 @@ header {
 .content .main-content .post .post-image {
     width: 40%;
     height: 100%;
-    float: left;
 }
 
 /* Text preview styling within a post */
 .content .main-content .post .post-preview {
     width: 60%;
     padding: 10px;
-    float: right;
+    float: left;
 }
 
 /* Title for recent posts section */
 .content .main-content .recent-post-title {
     margin: 20px;
+}
+
+/* Footer */
+.footer {
+    background: #81e6f0;
+    color: #015c5f;
+    min-height: 250px;
+    position: relative;
+    clear: both;
+    padding: 20px 0;
+    width: 100vw; /* Ensures the footer spans the full viewport width */
+    margin-left: calc(-50vw + 50%); /* Removes side gaps, centering the footer */
+    left: 0;
+}
+
+.footer .footer-content{
+    border: 1px solid red;
+    height: 250px;
+}
+
+.footer .footer-bottom {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding-top: 20px;
 }
 
 
