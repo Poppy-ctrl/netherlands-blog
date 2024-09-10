@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: #f6f6f6; 
+    font-family: 'Roboto', serif;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;/* Ensures no underline on text*/
+}
+
+a:hover {
+    text-decoration: none; /* Ensures no underline on hover */
+}
+
+header {
+    background: #008489;
+    height: 66px;
+}
+
+.logo {
+    float: left;
+    height: inherit;
+    margin-left: 2em;
+}
+
+.logo-text {
+    margin: 8px;
+    font-family: 'Roboto', serif;
+}
+
+.logo-text span {
+    color: black;
+}
+
+.nav {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.nav li a {
+    display: block;
+    padding: 21px;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+.nav li a:hover {
+    background: #006669;
+    transition: 0.5s;
+}

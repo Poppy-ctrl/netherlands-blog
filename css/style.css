@@ -274,11 +274,12 @@ header {
 }
 
 .footer .contact-form .btn {
-    width: 10%;
+    width: 100%;
     height: 30%;
     align-self: flex-end;
+    background: none;
+    border: none;
 }
-
 
 .footer .footer-bottom {
     width: 100%;
@@ -292,8 +293,7 @@ header {
 
 /* Media quieries*/
 
-
-@media only screen and (max-width: 750px){
+@media only screen and (max-width: 831px){
     header {
         position: relative;
     }
