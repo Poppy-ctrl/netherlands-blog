@@ -4,10 +4,12 @@
 
 html, body {
     height: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background: #f6f6f6; 
     font-family: 'Roboto', serif;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
@@ -111,13 +113,14 @@ header {
 }
 
 .wrapper {
-    min-height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 /* Container for the main content area */
 .content {
+    flex: 1;
     width: 90%;
     margin: 30px auto;
 }
@@ -128,9 +131,30 @@ header {
     float: left;
 }
 
+/* Styling for the single post on the about page */
+.content .main-content.single-post { 
+    padding: 20px 50px;
+    font-size: 1.1em;
+    background-color: #d51abf;
+}
+
+/* Text preview styling within a post */
+.content .main-content.single-post .post-content {
+    width: 100%;
+    padding: 10px;
+}
+
+/* Image styling within a post */
+.content .main-content .post-content .post-image {
+    width: 50%;
+    height: 50%;
+}
+
 .topics { /* Size of topics box */
     width: 100%; 
     padding: 10px; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .topics-list-title { /* Formatting of title */
@@ -222,13 +246,55 @@ header {
     padding: 20px 0;
     width: 100vw; /* Ensures the footer spans the full viewport width */
     margin-left: calc(-50vw + 50%); /* Removes side gaps, centering the footer */
-    left: 0;
+    display: flex;
 }
 
-.footer .footer-content{
-    border: 1px solid red;
-    height: 250px;
+.footer .footer-content {
+    display: flex; /* Align children horizontally */
+    width: 100%; /* Ensure it spans the full height of the footer */
 }
+
+
+.footer .footer-section {
+    flex: 1; /* Make both sections take up equal space */
+    box-sizing: border-box; /* Ensure padding is included in width */
+    padding: 20px;
+    border: 1px solid red;
+}
+
+.footer .contact-form {
+    display: flex; /* Use flexbox for the contact form */
+    flex-direction: column; /* Stack children vertically */
+    flex: 1; /* Allow it to grow and fill available space */
+    justify-content: space-between; /* Distribute space between form elements */
+}
+
+.footer .contact-form h2 {
+    margin: 0 0 0px; /* Adjust bottom margin to reduce space between title and form */
+    padding: 0;
+}
+
+.footer .contact-form .text-input {
+    margin-bottom: 5px; /* Space between form elements */
+    width: 100%; /* Full width of the container */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.footer .contact-form form {
+    display: flex; /* Use flexbox for the form */
+    flex-direction: column; /* Stack form elements vertically */
+    flex: 1; /* Allow the form to grow and fill the contact-form section */
+}
+
+.footer .contact-form .btn {
+    width: 10%;
+    height: 30%;
+    align-self: flex-end;
+}
+
 
 .footer .footer-bottom {
     width: 100%;
