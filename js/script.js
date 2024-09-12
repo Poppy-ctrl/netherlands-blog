@@ -47,9 +47,6 @@ $(document).ready(function(){
         let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
         const draftsTableBody = $('#drafts-list'); // Ensure this ID matches your HTML
 
-        // Clear any existing content (remove this line if you want to keep old drafts)
-        draftsTableBody.empty();
-
         // Sort drafts by date (most recent first)
         drafts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -62,6 +59,7 @@ $(document).ready(function(){
                     <td>
                         <a href="edit.html?id=${draft.id}">Edit</a>
                         <a href="#" class="delete-draft" data-id="${draft.id}">Delete</a>
+                        <a href="#" class="publish-draft" data-id="${draft.id}">Publish</a>
                     </td>
                 </tr>
             `);
@@ -89,6 +87,68 @@ $(document).ready(function(){
         // Reload the page to update the table
         location.reload();
     });
+
+    $(document).on('click', '.publish-draft', function(e) {
+        e.preventDefault();
+
+        // Get the ID of the draft to publish
+        const idToPublish = $(this).data('id');
+
+        // Get drafts from localStorage
+        let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
+        let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
+
+        // Find the draft to publish
+        let draftToPublish = drafts.find(draft => draft.id === idToPublish);
+
+        if (draftToPublish) {
+            // Remove the draft from the drafts array
+            drafts = drafts.filter(draft => draft.id !== idToPublish);
+
+            // Add the draft to the published posts array
+            publishedPosts.push(draftToPublish);
+
+            // Update localStorage
+            localStorage.setItem('drafts', JSON.stringify(drafts));
+            localStorage.setItem('publishedPosts', JSON.stringify(publishedPosts));
+
+            // Reload the page to update the table
+            location.reload();
+        }
+    });
+
+    //Load published posts into all posts page
+    function loadPublishedPosts() {
+        if ($('body').hasClass('all-posts-page')) {
+            let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
+            const postsList = $('#posts-list'); // Ensure this ID matches HTML
+
+            // Clear any existing content
+            postsList.empty();
+
+            // Sort posts by date (most recent first)
+            publishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Loop through published posts and append them to the list
+            publishedPosts.forEach(post => {
+                postsList.append(`
+                    <div class="post">
+                        <div class="post-preview">
+                            <h2><a href="single.html?id=${post.id}">${post.title}</a></h2>
+                            <i class="far fa-calendar">${formatDate(post.date)}</i>
+                            <p class="preview-text">
+                                ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
+                            </p>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    }
+
+    // Call the function when the page is loaded
+    loadPublishedPosts();
 });
+
 
 
