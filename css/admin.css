@@ -43,6 +43,11 @@ header {
     list-style: none;
 }
 
+.nav li {
+    float: left;
+    position: relative;
+}
+
 .nav li a {
     display: block;
     padding: 21px;
@@ -53,4 +58,42 @@ header {
 .nav li a:hover {
     background: #006669;
     transition: 0.5s;
+}
+
+.options {
+    flex: 1;
+    width: 100%;
+    text-align: left;
+    margin: 30px auto;
+    margin-left: 30px;
+}
+
+.manage-posts {
+    flex: 1;
+    width: 100%;
+    text-align: left;
+    margin-top: 30px auto;
+    margin-left: 30px;   
+}
+
+.post-creation {
+    flex: 1;
+    width: 100%;
+    text-align: left;
+    margin-top: 30px auto;
+    margin-left: 30px;
+} 
+
+.post-creation .post-inputs{
+    margin-bottom: 5px; /* Space between form elements */
+    width: 50%; /* Full width of the container */
+    padding: 10px;
+    height: 100%;
+}
+
+.post-creation .post-inputs form{
+    display: flex; /* Use flexbox for the form */
+    flex-direction: column; /* Stack form elements vertically */
+    flex: 1; /* Allow the form to grow and fill the contact-form section */
+    gap: 15px;
 }

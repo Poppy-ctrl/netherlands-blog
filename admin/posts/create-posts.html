@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Font awesome link -->
+    <script src="https://kit.fontawesome.com/848e24f63c.js" crossorigin="anonymous"></script>
+    
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="../../css/admin.css">
+    <title>Create Post</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1 class="logo-text"><span>BLOG </span>NAME</h1> <!--name wrapped in span so the words can be formatted later-->
+        </div>
+        <!-- Page Tabs -->
+        <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Manage Posts</a></li>
+        </ul>
+    </header>
+
+    <!-- Creating Posts -->
+    <div class="post-creation">
+        <h2>New Post</h2>
+        <div class="post-inputs">
+            <form id="draftPost">
+                <input type="text" id="post-title" name="title" class="text-input" placeholder="Title">
+                <textarea id="post-content" name="post" class="text-input" placeholder="Your Post"></textarea>
+                <button type="submit" class="btn btn-big">Save to Drafts</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JQuery source code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Custom script -->
+    <script src="../../js/script.js"></script>
+
+</body>
+</html>
