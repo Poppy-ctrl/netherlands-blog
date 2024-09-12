@@ -1,8 +1,39 @@
-$(document).ready(function(){
+$(document).ready(function() {
     // Handle menu toggle
-    $('.menu-toggle').on('click', function(){
+    $('.menu-toggle').on('click', function() {
         $('.nav').toggleClass('showing');
     });
+
+    $('#home-link').on('click', function(e) {
+        e.preventDefault();
+        window.location.href='home.html';
+    });
+
+    $('#about-link').on('click', function(e) {
+        e.preventDefault();
+        window.location.href='about.html';
+    });
+
+    $('#all-posts-link').on('click', function(e) {
+        e.preventDefault();
+        window.location.href='all-posts.html';
+    });
+
+    $('#manage-to-posts-link').on('click', function(e) {
+        e.preventDefault();
+        window.location.href='../../all-posts.html';
+    });
+
+    $('#manage-posts-link').on('click', function(e) {
+        e.preventDefault();
+        window.location.href='manage-posts.html';
+    });
+
+    // Check if user is an admin (this could be done by checking a flag or value set in the session)
+    // For demo purposes, we'll assume an admin flag is set in localStorage
+    if (localStorage.getItem('isAdmin') === 'true') {
+        $('#admin-link').show();
+    }
 
     // Date formatting function for display
     function formatDate(dateString) {
@@ -12,7 +43,7 @@ $(document).ready(function(){
     }
 
     // Handle saving drafts
-    $('#draftPost').on('submit', function(e){ // Ensure the ID is correct for the form
+    $('#draftPost').on('submit', function(e) {
         e.preventDefault();
 
         // Get the input information
@@ -39,7 +70,7 @@ $(document).ready(function(){
         localStorage.setItem('drafts', JSON.stringify(drafts));
 
         // Redirect to the manage posts page
-        window.location.href = 'index.html'; // Redirect to your manage posts page
+        window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
     });
 
     // Load drafts into the manage posts table if on admin page
@@ -117,7 +148,7 @@ $(document).ready(function(){
         }
     });
 
-    //Load published posts into all posts page
+    // Load published posts into all posts page
     function loadPublishedPosts() {
         if ($('body').hasClass('all-posts-page')) {
             let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
@@ -149,6 +180,7 @@ $(document).ready(function(){
     // Call the function when the page is loaded
     loadPublishedPosts();
 });
+
 
 
 

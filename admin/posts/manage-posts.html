@@ -11,12 +11,23 @@
     <title>Admin</title>
 </head>
 <body class="admin-page">
+    <script>
+        // Simple password protection
+        const correctPassword = '1234Elvis!'; // Set your password here
+        const enteredPassword = prompt('Enter password:');
+        
+        if (enteredPassword !== correctPassword) {
+            alert('Access denied.');
+            window.location.href = '../../home.html'; // Redirect to a safe page
+        }
+    </script>
+
     <header>
         <div class="logo">
             <h1 class="logo-text"><span>BLOG </span>NAME</h1>
         </div>
         <ul class="nav">
-            <li><a href="#">Home</a></li>
+            <li><a href="#" id="manage-to-posts-link" >All Posts</a></li>
         </ul>
     </header>
 
