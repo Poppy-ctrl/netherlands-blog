@@ -17,7 +17,7 @@
     <title>Blog</title>
 </head>
 
-<body>
+<body class="homepage"> <!-- Add a class to identify the page -->
     <header>
         <div class="logo">
             <h1 class="logo-text"><span>BLOG </span>NAME</h1> <!--name wrapped in span so the words can be formatted later-->
@@ -72,41 +72,8 @@
             </div>
             
             <h1 class="recent-post-title">Recent Posts</h1>
-
-            <div class="post">
-                <div class="post-preview">
-                    <h2><a href="single.html">Test post making</a></h2>
-                    &nbsp;
-                    <i class="far fa calendar">8 Sept 2024</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, iusto non nisi sit excepturi illum 
-                        obcaecati ut nobis placeat voluptatem cupiditate enim quam ipsa possimus laboriosam quas ratione quasi voluptates!
-                    </p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-preview">
-                    <h2><a href="single.html">Test post making</a></h2>
-                    &nbsp;
-                    <i class="far fa calendar">8 Sept 2024</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, iusto non nisi sit excepturi illum 
-                        obcaecati ut nobis placeat voluptatem cupiditate enim quam ipsa possimus laboriosam quas ratione quasi voluptates!
-                    </p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-preview">
-                    <h2><a href="single.html">Test post making</a></h2>
-                    &nbsp;
-                    <i class="far fa calendar">8 Sept 2024</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, iusto non nisi sit excepturi illum 
-                        obcaecati ut nobis placeat voluptatem cupiditate enim quam ipsa possimus laboriosam quas ratione quasi voluptates!
-                    </p>
-                </div>
+            <div id="recent-posts-list" class="recent-posts-list">
+                <!-- Posts will be dynamically inserted here -->
             </div>
     </div>
 
