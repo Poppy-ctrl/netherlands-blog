@@ -256,12 +256,12 @@ $(document).ready(function() {
                 postsList.append(`
                     <div class="post">
                         <div class="post-preview">
-                            <h2><a href="single.html?id=${post.id}">${post.title}</a></h2>
+                            <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
                             <i class="far fa-calendar">${formatDate(post.date)}</i>
                             <p class="preview-text">
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
                             </p>
-                            <p class="post-category">Category: ${post.category}</p>
+                            <p class="post-category"> ${post.category}</p>
                         </div>
                     </div>
                 `);
@@ -309,23 +309,41 @@ $(document).ready(function() {
                 recentPostsList.append(`
                     <div class="post">
                         <div class="post-preview">
-                            <h2><a href="single.html?id=${post.id}">${post.title}</a></h2>
+                            <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
                             <i class="far fa-calendar">${formatDate(post.date)}</i>
-                            <p class="preview-text">
-                                ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
-                            </p>
-                            <p class="post-category">Category: ${post.category}</p>
                         </div>
                     </div>
                 `);
             });
         }
     }
+    // Function to load full post details
+    function loadFullPost() {
+        const postId = getQueryParam('id');
+        let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
+    
+        // Find the post with the matching ID
+        const post = publishedPosts.find(p => p.id == postId);
 
+        if (post) {
+            document.title = post.title;
+
+            $('#full-post-container').html(`
+                <div class="full-post">
+                    <h1>${post.title}</h1>
+                    <p><i class="far fa-calendar">${new Date(post.date).toLocaleDateString()}</i></p>
+                    <p class="post-category">Category: ${post.category}</p>
+                    <div class="post-content">${post.content}</div>
+                </div>
+            `);
+        }
+    }
+    
     // Call all load functions
     loadPublishedPosts();
     loadPublishedPostsOnAllPostsPage();
     loadRecentPosts();
+    loadFullPost();
 });
 
 

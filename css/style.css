@@ -6,7 +6,7 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    background: #f6f6f6; 
+    background: #F4EBDE; 
     font-family: 'Roboto', serif;
     display: flex;
     flex-direction: column;
@@ -27,12 +27,12 @@ a:hover {
 }
 
 header {
-    background: #008489;
+    background: #22433D;
     height: 66px;
 }
 
 .logo, .nav, .menu-toggle {
-    color: black;
+    color: #F4EBDE;
 }
 
 .logo {
@@ -47,7 +47,7 @@ header {
 }
 
 .logo-text span {
-    color: black;
+    color: #F4EBDE;
 }
 
 .nav {
@@ -63,6 +63,7 @@ header {
 }
 
 .nav li a {
+    color: #F4EBDE;
     display: block;
     padding: 21px;
     font-size: 1.1em;
@@ -70,7 +71,7 @@ header {
 }
 
 .nav li a:hover {
-    background: #006669;
+    background: #22433D;
     transition: 0.5s;
 }
 
@@ -78,34 +79,6 @@ header {
     display: none;
 }
 
-.nav li ul {
-    display: none; 
-    position: absolute; 
-    top: 66px; 
-    left: 0;
-    background: #008489; 
-    width: 200px;
-    padding: 0;
-    list-style: none;
-}
-
-.nav li:hover ul {
-    display: block;
-}
-
-.nav li ul li {
-    float: none;
-}
-
-.nav li ul li a {
-    padding: 10px; 
-    font-size: 1em; 
-}
-
-.nav li ul li a.logout{
-    color: red;
-
-}
 
 .nav li ul li a:hover {
     background: #006669; 
@@ -123,48 +96,31 @@ header {
     flex: 1;
     width: 100%;
     margin: 30px auto;
+    display: flex;
+    flex-direction: column; /* Ensure the topics and recent posts are stacked vertically */
+    gap: 20px; /* Space between sections */
 }
 
 /* Container for the main content section */
 .content .main-content {
     width: 100%;
-    float: left;
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
 }
 
-/* Styling for the single post on the about page */
-.content .main-content.single-post { 
-    padding: 20px 50px;
-    font-size: 1.1em;
-    background-color: #d51abf;
-}
-
-/* Text preview styling within a post */
-.content .main-content.single-post .post-content {
+/* Topics Section */
+.topics {
     width: 100%;
     padding: 10px;
-}
-
-.content .main-content.single-post .about-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.topics { /* Size of topics box */
-    width: 100%; 
-    padding: 10px; 
     margin-left: auto;
     margin-right: auto;
 }
 
-.topics-list-title { /* Formatting of title */
-    margin-bottom: 20px; 
-}
-
-.topic-container { /* Formatting of individual topics containers */
+.topic-container {
     display: flex; /* Flexbox for horizontal layout */
     flex-direction: row; /* Arrange items in a row */
     flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
-    gap: 10px; 
+    gap: 10px;
     justify-content: center;
 }
 
@@ -173,7 +129,7 @@ header {
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
     padding: 10px; /* Padding inside each topic box */
-    border: 1px solid #ddd; /* Border around each topic box */
+    border: 1.5px solid #22433D; /* Border around each topic box */
     border-radius: 20px; /* Rounded corners */
     margin: 5px; /* Margin to add space between boxes */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -186,50 +142,81 @@ header {
 }
 
 .topic-name h2 a {
-    color: #d51abf; /* Color for the links */
+    color: #22433D; /* Color for the links */
     transition: color 0.3s ease; /* Smooth color transition on hover */
 }
 
 .topic-name:hover {
-    background-color: #d51abf; /* Background color on hover */
-    color: #ffffff; 
+    background-color: #22433D; /* Background color on hover */
+    color: #ffffff;
 }
 
 .topic-name:hover h2 a {
-    color: #ffffff; 
+    color: #ffffff;
+}
+
+/* Recent Posts Section */
+.recent-posts-title {
+    text-align: left;
+    margin-left: 75px;
+    color: #22433D;
+}
+
+.recent-posts-list {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px;
+    justify-content: center; 
+    width: 100vw; 
+    margin: 0 auto; 
+    padding: 0 10px;
 }
 
 /* Individual post styling */
-.content .main-content .post {
-    width: 100%;
-    height: 270px;
-    margin: 20px auto;
+.recent-posts-list .post {
+    width: 30%; 
+    height: 400px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
     border-radius: 5px;
     border: 1px solid rebeccapurple;
-    text-align: left;
+    text-align: center;
+    margin: 10px 0; 
 }
 
 /* Text preview styling within a post */
-.content .main-content .post .post-preview {
+.recent-posts-list .post .post-preview {
     width: 100%;
     padding: 10px;
 }
 
-/* Title for recent posts section */
-.content .main-content .recent-post-title {
-    margin: 20px;
+/* Styling for the single post on the about page */
+.single-post { 
+    padding: 20px 50px;
+    font-size: 1.1em;
+    background-color: #d51abf;
+}
+
+/* Text preview styling within a post */
+.single-post .post-content {
+    width: 100%;
+    padding: 10px;
+}
+
+.single-post .about-title {
+    text-align: left;
+    margin-bottom: 40px;
 }
 
 /* Footer */
 .footer {
-    background: #81e6f0;
-    color: #015c5f;
+    color: #22433D;
     min-height: 250px;
     position: relative;
     clear: both;
-    padding: 20px 0;
+    padding: 20px 20px;
     width: 100vw; /* Ensures the footer spans the full viewport width */
-    margin-left: calc(-50vw + 50%); /* Removes side gaps, centering the footer */
     display: flex;
 }
 
@@ -237,7 +224,6 @@ header {
     display: flex; /* Align children horizontally */
     width: 100%; /* Ensure it spans the full height of the footer */
 }
-
 
 .footer .footer-section {
     flex: 1; /* Make both sections take up equal space */
@@ -282,24 +268,23 @@ header {
 }
 
 .footer .footer-bottom {
+    color: #22433D;
     width: 100%;
     text-align: center;
     padding-top: 20px;
     position: absolute;
-    bottom: 0px;
+    bottom: -10px;
     left: 0px;
-    padding-top: 20px;
 }
 
-/* Media quieries*/
-
+/* Media queries */
 @media only screen and (max-width: 831px){
     header {
         position: relative;
     }
     .nav {
         width: 100%;
-        background: #0E94A0;
+        background: #22433D;
         max-height: 0px;
         overflow: hidden;
     }
@@ -321,10 +306,11 @@ header {
         display: block;
         position: absolute;
         right: 20px;
-        top: 20px;
+        top: 18px;
         font-size: 1.9em;
     }
     .logo {
-        margin-left: 0.5em;
+        margin-left: 1.25em;
+        margin-top: 0.2em;
     }
 }
