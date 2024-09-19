@@ -10,6 +10,7 @@ html, body {
     font-family: 'Roboto', serif;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 a {
@@ -114,6 +115,7 @@ header {
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 30px;
 }
 
 .topic-container {
@@ -155,6 +157,36 @@ header {
     color: #ffffff;
 }
 
+/* Latest Post Section */
+.latest-post {
+    text-align: center;
+    height: 500px;
+    width: 100%;
+    margin: 0 auto; /* Center the element */
+    margin-bottom: 30px;
+}
+
+.latest-post .post-preview {
+    display: flex; /* Use flexbox for side-by-side layout */
+    align-items: center; /* Align items vertically centered */
+}
+
+.post-image {
+    margin-right: 30px; /* Add some spacing between image and details */
+    width: 50%; /* Set width to 50% of the container */
+    overflow: hidden; /* Ensure overflow is hidden */
+}
+
+.post-image img {
+    width: 100%; /* Make the image take the full width of the post-image container */
+    height: 500px;
+}
+
+.post-details {
+    width: 50%; /* Ensure this takes the remaining width */
+}
+
+
 /* Recent Posts Section */
 .recent-posts-title {
     text-align: left;
@@ -167,7 +199,7 @@ header {
     flex-wrap: wrap; 
     gap: 20px;
     justify-content: center; 
-    width: 100vw; 
+    width: 100%; 
     margin: 0 auto; 
     padding: 0 10px;
 }
@@ -180,7 +212,8 @@ header {
     flex-direction: column; 
     justify-content: center; 
     border-radius: 5px;
-    border: 1px solid rebeccapurple;
+    border: 1.5px solid #22433D;
+    border-radius: 20px;
     text-align: center;
     margin: 10px 0; 
 }
@@ -215,8 +248,7 @@ header {
     min-height: 250px;
     position: relative;
     clear: both;
-    padding: 20px 20px;
-    width: 100vw; /* Ensures the footer spans the full viewport width */
+    width: 100%; /* Ensures the footer spans the full viewport width */
     display: flex;
 }
 
@@ -271,10 +303,9 @@ header {
     color: #22433D;
     width: 100%;
     text-align: center;
-    padding-top: 20px;
     position: absolute;
-    bottom: -10px;
-    left: 0px;
+    top: 265px;
+
 }
 
 /* Media queries */

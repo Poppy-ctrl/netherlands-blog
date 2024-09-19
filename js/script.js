@@ -61,18 +61,42 @@ $(document).ready(function() {
             date: date // Store the full ISO date
         };
 
-        // Save draft to localStorage
-        let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
-        drafts.push(draft);
+        // Handle image upload and conversion to Base64
+        const fileInput = $('#post-image')[0];
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Once the image is converted to Base64, save it in the draft object
+                draft.image = e.target.result;
+    
+                // Save draft to localStorage
+                let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
+                drafts.push(draft);
 
-        // Sort drafts by date (most recent first)
-        drafts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                // Sort drafts by date (most recent first)
+                drafts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Update localStorage
-        localStorage.setItem('drafts', JSON.stringify(drafts));
+            // Update localStorage
+            localStorage.setItem('drafts', JSON.stringify(drafts));
 
-        // Redirect to the manage posts page
-        window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
+            // Redirect to the manage posts page
+            window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
+        };
+            reader.readAsDataURL(fileInput.files[0]); // Convert image to Base64
+        } else {
+            // No image uploaded, save draft without an image
+            let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
+            drafts.push(draft);
+
+            // Sort drafts by date (most recent first)
+            drafts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Update localStorage
+            localStorage.setItem('drafts', JSON.stringify(drafts));
+
+            // Redirect to the manage posts page
+            window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
+        }
     });
 
     // Load drafts into the manage posts table if on admin page
@@ -90,6 +114,7 @@ $(document).ready(function() {
                     <td>${formatDate(draft.date)}</td> 
                     <td>${draft.title}</td>
                     <td>${draft.category}</td>
+                    <td>${draft.image ? 'Image attached' : 'No image'}</td>
                     <td>
                         <a href="edit.html?id=${draft.id}">Edit</a>
                         <a href="#" class="delete-draft" data-id="${draft.id}">Delete</a>
@@ -130,7 +155,6 @@ $(document).ready(function() {
     // Load draft details to edit
     $(function() {
         const draftId = getQueryParam('id');
-        
         if (draftId) {
             // Get drafts from localStorage
             let drafts = JSON.parse(localStorage.getItem('drafts')) || [];
@@ -142,6 +166,12 @@ $(document).ready(function() {
                 $('#post-title').val(draftToEdit.title);
                 $('#post-content').val(draftToEdit.content);
                 $('#category').val(draftToEdit.category);
+                            // Show image preview if it exists
+                if (draftToEdit.image) {
+                    $('#image-preview').attr('src', draftToEdit.image).show();
+                } else {
+                    $('#image-preview').hide();
+                }
             }
         }
     });
@@ -171,14 +201,30 @@ $(document).ready(function() {
             draftToEdit.category = category;
             draftToEdit.date = date; // Update date
     
+        // Handle image upload and conversion to Base64
+        const fileInput = $('#post-image')[0];
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                draftToEdit.image = e.target.result;
+
+                // Save updated drafts to localStorage
+                localStorage.setItem('drafts', JSON.stringify(drafts));
+
+                // Redirect to the manage posts page
+                window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
+            };
+            reader.readAsDataURL(fileInput.files[0]); // Convert image to Base64
+        } else {
+            // If no new image is uploaded, keep the existing image
             // Save updated drafts to localStorage
             localStorage.setItem('drafts', JSON.stringify(drafts));
-    
+
             // Redirect to the manage posts page
             window.location.href = 'manage-posts.html'; // Redirect to your manage posts page
+            }
         }
     });
-    
 
     $(document).on('click', '.publish-draft', function(e) {
         e.preventDefault();
@@ -257,7 +303,7 @@ $(document).ready(function() {
                     <div class="post">
                         <div class="post-preview">
                             <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
-                            <i class="far fa-calendar">${formatDate(post.date)}</i>
+                            <p class="post-date">${formatDate(post.date)}</p>
                             <p class="preview-text">
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
                             </p>
@@ -289,6 +335,43 @@ $(document).ready(function() {
         location.reload();
     });
 
+    // Load newest post into homepage
+    function loadLatestPost() {
+        if ($('body').hasClass('homepage')) {
+            let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
+            const latestPost = $('#latest-post'); // Ensure this ID matches HTML
+
+            // Clear any existing content
+            latestPost.empty();
+
+            // Sort posts by date (most recent first)
+            publishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Limit to newest post
+            const newestPost = publishedPosts.slice(0, 1);
+
+            // Loop through 3 most recent posts and append them to the homepage
+            newestPost.forEach(post => {
+                latestPost.append(`
+                    <div class="post">
+                        <div class="post-preview">
+                            <div class="post-image">
+                                ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
+                            </div>
+                            <div class="post-details">
+                                <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
+                                <p class="post-date">${formatDate(post.date)}</p>
+                                <p class="preview-text">
+                                ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    }
+
     // Load three most recent posts into the homepage
     function loadRecentPosts() {
         if ($('body').hasClass('homepage')) {
@@ -302,7 +385,7 @@ $(document).ready(function() {
             publishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             // Limit to three most recent posts
-            const recentPosts = publishedPosts.slice(0, 3);
+            const recentPosts = publishedPosts.slice(1, 4);
 
             // Loop through 3 most recent posts and append them to the homepage
             recentPosts.forEach(post => {
@@ -310,13 +393,14 @@ $(document).ready(function() {
                     <div class="post">
                         <div class="post-preview">
                             <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
-                            <i class="far fa-calendar">${formatDate(post.date)}</i>
+                            <p class="post-date">${formatDate(post.date)}</p>
                         </div>
                     </div>
                 `);
             });
         }
     }
+
     // Function to load full post details
     function loadFullPost() {
         const postId = getQueryParam('id');
@@ -331,7 +415,7 @@ $(document).ready(function() {
             $('#full-post-container').html(`
                 <div class="full-post">
                     <h1>${post.title}</h1>
-                    <p><i class="far fa-calendar">${new Date(post.date).toLocaleDateString()}</i></p>
+                    <p>${new Date(post.date).toLocaleDateString()}</p>
                     <p class="post-category">Category: ${post.category}</p>
                     <div class="post-content">${post.content}</div>
                 </div>
@@ -342,6 +426,7 @@ $(document).ready(function() {
     // Call all load functions
     loadPublishedPosts();
     loadPublishedPostsOnAllPostsPage();
+    loadLatestPost();
     loadRecentPosts();
     loadFullPost();
 });
