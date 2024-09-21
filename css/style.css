@@ -308,32 +308,127 @@ header {
 
 /* Footer */
 .footer {
-    color: #22433D;
-    min-height: 250px;
+    min-height: 300px;
     position: relative;
     clear: both;
-    width: 100%; /* Ensures the footer spans the full viewport width */
+    width: 100%;
     display: flex;
 }
 
 .footer .footer-content {
-    display: flex; /* Align children horizontally */
-    width: 100%; /* Ensure it spans the full height of the footer */
+    display: flex;
+    width: 100%;
+    background-color: #22433d;
+    color: #F4F1DE;
 }
 
-.footer .footer-section {
-    flex: 1; /* Make both sections take up equal space */
-    box-sizing: border-box; /* Ensure padding is included in width */
-    padding: 20px;
-    border: 1px solid red;
+.footer .footer-section-contact {
+    flex: 2; 
+    padding-left: 10%;
+    padding-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.footer .footer-bottom {
-    color: #22433D;
+.footer .footer-section-contact h2{
+    font-size: xxx-large;
+}
+
+.footer .footer-section-contact h3{
+    font-size: x-large;
+}
+
+.footer .footer-section-illustration {
+    flex: 1.5; 
+    height: 300px;
+    box-sizing: border-box;
+}
+
+.footer .footer-section-illustration img{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.footer .footer-section-contact-choices {
+    flex: 1.5; 
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.email h2{
+    font-size: xx-large;
+    margin-bottom: 20px;
+    margin-top: auto;
+}
+
+.socials {
+    font-size: xxx-large;
+    color: #CCAEDA;
+    display: flex;
+    justify-content: left;
+    gap: 30px;
+}
+
+.footer-bottom {
+    width: 100%;
+    height:auto;
+    text-align: center;
+}
+
+.newsletter {
     width: 100%;
     text-align: center;
-    position: absolute;
-    top: 265px;
+}
+
+.newsletter h2 {
+    font-size: xxx-large;
+    color: #22433D;
+}
+
+.newsletter h3 {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+    color: #22433D;
+}
+
+.newsletter-sign-up {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    border: 2px solid #22433D; 
+    border-radius: 30px; 
+    margin-bottom: 50px;
+}
+
+.email-input {
+    display: flex;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-right: 10px;
+    font-size: large;
+    flex: 2;
+    border: none;
+    border-bottom: 1px solid #22433D;
+    background-color: #F4F1DE;
+}
+
+.btn-email-submit {
+    border: none;
+    border-radius: 20px;
+    background-color: #CCAEDA;
 }
 
 /* Styling for the single post on the about page */
