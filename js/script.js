@@ -35,11 +35,26 @@ $(document).ready(function() {
         $('#admin-link').show();
     }
 
+    // Function to get the ordinal suffix for a day
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return 'th'; // Special case for 11th to 13th
+        switch (day % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    }
+
     // Date formatting function for display
     function formatDate(dateString) {
-        const options = { day: '2-digit', month: 'short', year: '2-digit' };
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-GB', options);
+        const day = date.getDate();
+        const month = date.toLocaleString('en-GB', { month: 'long' });
+        const year = date.getFullYear();
+        const suffix = getOrdinalSuffix(day);
+    
+        return `${day}${suffix} ${month} ${year}`;
     }
 
     // Handle saving drafts
@@ -289,7 +304,7 @@ $(document).ready(function() {
     function loadPublishedPostsOnAllPostsPage() {
         if ($('body').hasClass('all-posts-page')) {
             let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
-            const postsList = $('#posts-list'); // Ensure this ID matches HTML
+            const postsList = $('#all-posts-list'); // Ensure this ID matches HTML
 
             // Clear any existing content
             postsList.empty();
@@ -300,7 +315,7 @@ $(document).ready(function() {
             // Loop through published posts and append them to the list
             publishedPosts.forEach(post => {
                 postsList.append(`
-                    <div class="post">
+                    <div class="all-posts">
                         <div class="post-preview">
                             <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
                             <p class="post-date">${formatDate(post.date)}</p>
@@ -308,6 +323,9 @@ $(document).ready(function() {
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
                             </p>
                             <p class="post-category"> ${post.category}</p>
+                            <div class="all-posts-image">
+                            ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
+                            </div>
                         </div>
                     </div>
                 `);
@@ -355,15 +373,15 @@ $(document).ready(function() {
                 latestPost.append(`
                     <div class="post">
                         <div class="post-preview">
-                            <div class="post-image">
-                                ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
-                            </div>
                             <div class="post-details">
                                 <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
-                                <p class="post-date">${formatDate(post.date)}</p>
                                 <p class="preview-text">
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
-                            </p>
+                                </p>
+                                <p class="post-date">${formatDate(post.date)}</p>
+                            </div>
+                            <div class="post-image">
+                            ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
                             </div>
                         </div>
                     </div>
@@ -390,12 +408,17 @@ $(document).ready(function() {
             // Loop through 3 most recent posts and append them to the homepage
             recentPosts.forEach(post => {
                 recentPostsList.append(`
-                    <div class="post">
-                        <div class="post-preview">
-                            <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
-                            <p class="post-date">${formatDate(post.date)}</p>
-                        </div>
+                <div class="post">
+                <div class="post-preview">
+                    <div class="recent-post-image">
+                        ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
                     </div>
+                    <div class="recent-post-details">
+                        <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
+                        <p class="post-date">${formatDate(post.date)}</p>
+                    </div>
+                </div>
+            </div>
                 `);
             });
         }

@@ -1,13 +1,14 @@
 * {
     box-sizing: border-box;
+    font-family: 'Roboto', serif;
+    font-weight: normal;
 }
 
 html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    background: #F4EBDE; 
-    font-family: 'Roboto', serif;
+    background: #F4F1DE;
     display: flex;
     flex-direction: column;
     overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -28,27 +29,28 @@ a:hover {
 }
 
 header {
-    background: #22433D;
+    background: #F4F1DE;
     height: 66px;
+    margin-top: 20px;
 }
 
 .logo, .nav, .menu-toggle {
-    color: #F4EBDE;
+    color: #22433D
 }
 
 .logo {
     float: left;
     height: inherit;
     margin-left: 2em;
+    margin-top: 0.25em;
 }
 
 .logo-text {
     margin: 8px;
-    font-family: 'Roboto', serif;
 }
 
 .logo-text span {
-    color: #F4EBDE;
+    color: #F4F1DE;
 }
 
 .nav {
@@ -64,7 +66,7 @@ header {
 }
 
 .nav li a {
-    color: #F4EBDE;
+    color: #22433D;
     display: block;
     padding: 21px;
     font-size: 1.1em;
@@ -96,7 +98,6 @@ header {
 .content {
     flex: 1;
     width: 100%;
-    margin: 30px auto;
     display: flex;
     flex-direction: column; /* Ensure the topics and recent posts are stacked vertically */
     gap: 20px; /* Space between sections */
@@ -111,11 +112,11 @@ header {
 
 /* Topics Section */
 .topics {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .topic-container {
@@ -131,14 +132,14 @@ header {
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
     padding: 10px; /* Padding inside each topic box */
-    border: 1.5px solid #22433D; /* Border around each topic box */
-    border-radius: 20px; /* Rounded corners */
+    border: 2px solid #22433D; /* Border around each topic box */
+    border-radius: 30px; /* Rounded corners */
     margin: 5px; /* Margin to add space between boxes */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .topic-name h2 {
-    font-size: 18px; /* Font size for each topic item */
+    font-size: xx-large; /* Font size for each topic item */
     margin: 0; /* Remove default margin */
     text-align: center; /* Center text within each topic box */
 }
@@ -158,88 +159,151 @@ header {
 }
 
 /* Latest Post Section */
-.latest-post {
-    text-align: center;
-    height: 500px;
-    width: 100%;
-    margin: 0 auto; /* Center the element */
-    margin-bottom: 30px;
-}
-
 .latest-post .post-preview {
-    display: flex; /* Use flexbox for side-by-side layout */
-    align-items: center; /* Align items vertically centered */
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 480px; 
+    overflow: hidden;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -160px;
+    background-color: #22433d;
+    font-size: 30px;
 }
 
+/* Styling for the image in latest post */
 .post-image {
-    margin-right: 30px; /* Add some spacing between image and details */
-    width: 50%; /* Set width to 50% of the container */
-    overflow: hidden; /* Ensure overflow is hidden */
+    flex-basis: 50%; 
 }
 
 .post-image img {
-    width: 100%; /* Make the image take the full width of the post-image container */
-    height: 500px;
+    width: 100%; 
+    height: auto;
+    padding-right: 24.5%;
 }
 
+/* Styling for the post details */
 .post-details {
-    width: 50%; /* Ensure this takes the remaining width */
+    flex-basis: 70%; 
+    text-align: left;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+}
+
+.post-details h2 {
+    color: #F4F1DE;
+    font-size: 50px; 
+}
+
+/* Styling for the post link inside the title */
+.post-details h2 a {
+    color: inherit; 
+}
+
+.post-details .preview-text {
+    color: #F4F1DE;
+    font-size: 25px;
+    font-weight: 200;
+    margin-bottom: 25px;
+}
+
+.post-details .post-date {
+    color: #F4F1DE;
+    font-size: 25px; 
+    font-weight: 200;
+}
+
+.btn-latest {
+    width: 10%;
+    height: 60px;
+    margin-top: 40px;
+    margin-left: 14%;
+    margin-bottom: 100px;
+    background-color: #CCAEDA;
+    border: transparent;
+    border-radius: 50px;
+    font-size: larger;
 }
 
 
 /* Recent Posts Section */
 .recent-posts-title {
     text-align: left;
-    margin-left: 75px;
+    margin-left: 230px;
     color: #22433D;
 }
 
 .recent-posts-list {
     display: flex; 
     flex-wrap: wrap; 
-    gap: 20px;
+    gap: 50px;
     justify-content: center; 
     width: 100%; 
-    margin: 0 auto; 
-    padding: 0 10px;
 }
 
 /* Individual post styling */
 .recent-posts-list .post {
-    width: 30%; 
-    height: 400px;
+    width: 25%;
+    height: 600px;
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
-    border-radius: 5px;
-    border: 1.5px solid #22433D;
-    border-radius: 20px;
-    text-align: center;
-    margin: 10px 0; 
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: #CCAEDA;
 }
 
 /* Text preview styling within a post */
 .recent-posts-list .post .post-preview {
     width: 100%;
-    padding: 10px;
+    height: auto;
 }
 
-/* Styling for the single post on the about page */
-.single-post { 
-    padding: 20px 50px;
-    font-size: 1.1em;
-    background-color: #d51abf;
+/* Styling for the image in latest post */
+.recent-post-image {
+    flex-basis: 80%; 
 }
 
-/* Text preview styling within a post */
-.single-post .post-content {
-    width: 100%;
-    padding: 10px;
+.recent-post-image img {
+    width: 100%; 
+    height: 400px;
+    object-fit: cover;
 }
 
-.single-post .about-title {
-    text-align: left;
-    margin-bottom: 40px;
+/* Styling for the post details */
+.recent-post-details {
+    text-align: left; 
+    padding-left: 40px;
+}
+
+.recent-post-details h2 {
+    font-size: 30px;
+    min-height: 80px;
+}
+
+.recent-post-details h2 a {
+    color: black;
+}
+
+/* Independent styling for the date */
+.recent-post-details .post-date {
+    font-size: 20px; 
+    font-weight: 300;
+}
+
+/* Styling for see all posts button */
+.btn {
+    width: 13%;
+    height: 60px;
+    margin-left: 10%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    background-color: #CCAEDA;
+    border: transparent;
+    border-radius: 50px;
+    font-size: 20px;
 }
 
 /* Footer */
@@ -264,48 +328,60 @@ header {
     border: 1px solid red;
 }
 
-.footer .contact-form {
-    display: flex; /* Use flexbox for the contact form */
-    flex-direction: column; /* Stack children vertically */
-    flex: 1; /* Allow it to grow and fill available space */
-    justify-content: space-between; /* Distribute space between form elements */
-}
-
-.footer .contact-form h2 {
-    margin: 0 0 0px; /* Adjust bottom margin to reduce space between title and form */
-    padding: 0;
-}
-
-.footer .contact-form .text-input {
-    margin-bottom: 5px; /* Space between form elements */
-    width: 100%; /* Full width of the container */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 100%;
-}
-
-.footer .contact-form form {
-    display: flex; /* Use flexbox for the form */
-    flex-direction: column; /* Stack form elements vertically */
-    flex: 1; /* Allow the form to grow and fill the contact-form section */
-}
-
-.footer .contact-form .btn {
-    width: 100%;
-    height: 30%;
-    align-self: flex-end;
-    background: none;
-    border: none;
-}
-
 .footer .footer-bottom {
     color: #22433D;
     width: 100%;
     text-align: center;
     position: absolute;
     top: 265px;
+}
 
+/* Styling for the single post on the about page */
+.single-post .post-content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.single-post .about-title {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.single-post .post-preview{ 
+    font-size: 1.1em;
+}
+
+.single-post .post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.all-posts-title{
+    text-align: center;
+}
+
+.all-posts-list{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.all-posts .post-preview {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 400px; 
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #22433d;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.all-posts-image {
+    width: 10px;
 }
 
 /* Media queries */
