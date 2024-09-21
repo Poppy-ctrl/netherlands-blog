@@ -47,25 +47,29 @@
                 <input type="text" id="post-title" name="title" class="text-input" placeholder="Title">
                 <textarea id="post-content" name="post" class="text-input" placeholder="Your Post"></textarea>
                 <label for="category">Choose a category:</label>
-                <select name="category" id="category">
-                    <option value="My life in the Netherlands">My life in the Netherlands</option>
-                    <option value="My Job Hunt">My Job Hunt</option>
-                    <option value="Cultural Differences">Cultural Differences</option>
-                    <option value="VISA Information">VISA Information</option>
-                    <option value="Career Building">Career Building</option>
-                    <option value="Housing Market">Housing Market</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Fun things to do in the Netherlands">Fun things to do in the Netherlands</option>
-                    <option value="Language Learning">Language Learning</option>
-                    <option value="Dutch National Holidays">Dutch National Holidays</option>
-                </select>
+                <div>
+                    <input type="checkbox" id="My Life" name="My Life" value="My Life">
+                    <label for="My Life">My Life</label><br>
+                    <input type="checkbox" id="Dutch Culture" name="Dutch Culture" value="Dutch Culture">
+                    <label for="Dutch Culture">Dutch Culture</label><br>
+                    <input type="checkbox" id="Language" name="Language" value="Language">
+                    <label for="Language">Language</label><br>
+                    <input type="checkbox" id="Dutch Attractions" name="Dutch Attractions" value="Dutch Attractions">
+                    <label for="Dutch Attractions">Dutch Attractions</label><br>
+                    <input type="checkbox" id="VISA" name="VISA" value="VISA">
+                    <label for="VISA">VISA</label><br>
+                    <input type="checkbox" id="Healthcare" name="Healthcare" value="Healthcare">
+                    <label for="Healthcare">Healthcare</label><br>
+                    <input type="checkbox" id="Housing" name="Housing" value="Housing">
+                    <label for="Housing">Housing</label><br>
+                    <input type="checkbox" id="Dutch Holidays" name="Dutch Holidays" value="Dutch Holidays">
+                    <label for="Dutch Holidays">Dutch Holidays</label><br>
+                    <input type="checkbox" id="Job Hunting" name="Job Hunting" value="Job Hunting">
+                    <label for="Job Hunting">Job Hunting</label><br>
+                </div>
                 <label for="post-image">Upload Image:</label>
                 <input type="file" id="post-image" name="image" accept="image/*">
-                <!-- Image Preview Section -->
-                <div id="image-preview-container">
-                <img id="image-preview" src="" alt="Image preview" style="display:none; width: 150px; height: auto;">
-                </div>
-                <button type="submit" class="btn btn-big">Save edit to Drafts</button>
+                <button type="submit" class="btn btn-big">Save to Drafts</button>
             </form>
         </div>
     </div>

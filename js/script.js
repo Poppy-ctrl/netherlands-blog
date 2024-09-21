@@ -64,7 +64,10 @@ $(document).ready(function() {
         // Get the input information
         let title = $('#post-title').val();
         let content = $('#post-content').val();
-        let category = $('#category').val();
+        let categories = []; 
+        $('input[type=checkbox]:checked').each(function() {
+            categories.push($(this).val());
+        });
         let date = new Date().toISOString(); // Full ISO date with timestamp
 
         // Create an object for the draft
@@ -72,7 +75,7 @@ $(document).ready(function() {
             id: Date.now(), // Unique id based on timestamp
             title: title,
             content: content,
-            category: category,
+            categories: categories,
             date: date // Store the full ISO date
         };
 
@@ -128,7 +131,7 @@ $(document).ready(function() {
                 <tr>
                     <td>${formatDate(draft.date)}</td> 
                     <td>${draft.title}</td>
-                    <td>${draft.category}</td>
+                    <td>${draft.categories}</td>
                     <td>${draft.image ? 'Image attached' : 'No image'}</td>
                     <td>
                         <a href="edit.html?id=${draft.id}">Edit</a>
@@ -180,7 +183,7 @@ $(document).ready(function() {
                 // Populate form fields with draft data
                 $('#post-title').val(draftToEdit.title);
                 $('#post-content').val(draftToEdit.content);
-                $('#category').val(draftToEdit.category);
+                $('#categories').val(draftToEdit.categories);
                             // Show image preview if it exists
                 if (draftToEdit.image) {
                     $('#image-preview').attr('src', draftToEdit.image).show();
@@ -200,7 +203,10 @@ $(document).ready(function() {
         // Get the input information
         let title = $('#post-title').val();
         let content = $('#post-content').val();
-        let category = $('#category').val();
+        let categories = []; 
+        $('input[type=checkbox]:checked').each(function() {
+            categories.push($(this).val());
+        });
         let date = new Date().toISOString(); // Full ISO date with timestamp
     
         // Retrieve drafts from localStorage
@@ -213,7 +219,7 @@ $(document).ready(function() {
             // Update draft fields
             draftToEdit.title = title;
             draftToEdit.content = content;
-            draftToEdit.category = category;
+            draftToEdit.categories = categories;
             draftToEdit.date = date; // Update date
     
         // Handle image upload and conversion to Base64
@@ -288,7 +294,7 @@ $(document).ready(function() {
                 <tr>
                     <td>${formatDate(post.date)}</td>
                     <td>${post.title}</td>
-                    <td>${post.category}</td>
+                    <td>${post.categories}</td>
                     <td>
                         <a href="#" class="delete-published-post" data-id="${post.id}">Delete</a>
                     </td>
@@ -322,7 +328,9 @@ $(document).ready(function() {
                             <p class="preview-text">
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
                             </p>
-                            <p class="post-category"> ${post.category}</p>
+                            <div class="post-categories">
+                            ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                            </div>
                             <div class="all-posts-image">
                             ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
                             </div>
@@ -437,12 +445,64 @@ $(document).ready(function() {
 
             $('#full-post-container').html(`
                 <div class="full-post">
-                    <h1>${post.title}</h1>
-                    <p>${new Date(post.date).toLocaleDateString()}</p>
-                    <p class="post-category">Category: ${post.category}</p>
-                    <div class="post-content">${post.content}</div>
+                    <div class="full-post-image">
+                        ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
+                    </div>
+                    <div class="post-info">
+                        <h1>${post.title}</h1>
+                        <p class="post-date">${formatDate(post.date)}</p>
+                        <div class="post-categories">
+                            ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                        </div>
+                    </div>
                 </div>
+                <div class="full-post-content">${post.content}</div>
             `);
+        }
+    }
+
+    // Load posts for the selected category
+    function loadCategories() {
+        console.log("loadCategories() is running");  // Debugging log
+        const selectedCategory = getQueryParam('category');
+        if ($('body').hasClass('categories-posts-page')) {
+            let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
+            console.log("Selected Category:", selectedCategory); // Log the selected category
+            const categoryPostsList = $('#category-posts');
+
+            localStorage.setItem('publishedPosts', JSON.stringify([{id: 1, title: 'Sample Post', categories: ['Language', 'Culture'], content: 'This is a sample post.', date: new Date().toISOString()}]));
+
+
+
+            // Clear any existing content
+            categoryPostsList.empty();
+
+            // Filter posts based on the selected category
+            const categoryFinder = publishedPosts.filter(post => post.categories.includes(selectedCategory));
+            console.log("Filtered Posts:", categoryFinder);
+
+            // Loop through filtered posts and append them to the list
+            if (categoryFinder.length > 0) {
+                categoryFinder.forEach(post => {
+                    categoryPostsList.append(`
+                        <div class="all-posts">
+                            <div class="post-preview">
+                                <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
+                                <p class="post-date">${formatDate(post.date)}</p>
+                                <p class="preview-text">${post.content.substring(0, 150)}...</p>
+                                <div class="post-categories">
+                                    ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                                </div>
+                                <div class="all-posts-image">
+                                    ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            } else {
+                categoryPostsList.append('<p>No posts found for this category.</p>'); // Message if no posts match
+            }
         }
     }
     
@@ -452,6 +512,7 @@ $(document).ready(function() {
     loadLatestPost();
     loadRecentPosts();
     loadFullPost();
+    loadCategories();
 });
 
 

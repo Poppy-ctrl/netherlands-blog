@@ -14,13 +14,13 @@
     
     <!-- Custom styling -->
     <link rel="stylesheet" href="css/style.css">
-    <title>Blog</title>
+    <title>About</title>
 </head>
 
-<body class="homepage"> 
+<body class="categories-page"> 
     <header>
         <div class="logo">
-            <h1 class="logo-text">Crocs & Clogs</h1> 
+            <h1 class="logo-text">Crocs & Clogs</h1> <!--name wrapped in span so the words can be formatted later-->
         </div>
         <!-- Page Tabs -->
         <i class="fa fa-bars menu-toggle"></i>
@@ -32,63 +32,14 @@
         </ul>
     </header>
 
-    <!-- Content Topics -->
     <div class="content clearfix">
         <div class="main-content">
-            <div class="topics">
-                <div class="topic-container">
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=My%20Life">My Life</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Job%20Hunting">Job hunting</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Dutch%20Culture">Dutch Culture</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=VISA">VISA</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Career%20Building">Career Building</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Housing">Housing</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Healthcare">Healthcare</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Dutch%20Attractions">Dutch Attractions</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Language">Language</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="categories.html?category=Dutch%20Holidays">Dutch Holidays</a></h2>
-                    </div>
-                </div>
+            <div id="category-posts" class="category-posts">
+                <!-- Posts will be dynamically inserted here -->
             </div>
-
-            <div id="latest-post" class="latest-post">
-                <div class="post"></div>
-            </div>
-            <button type="button" class="btn-latest">
-                Latest Post!
-                <i class="fa-solid fa-star"></i>
-            </button>
-            
-            <h1 class="recent-posts-title">Recent Posts <i class="fas fa-arrow-down"></i></h1>
-            <div id="recent-posts-list" class="recent-posts-list">
-                <div class="post"></div>
-                <div class="post"></div>
-                <div class="post"></div>
-            </div>
-            <button type="button" class="btn">
-                See all posts
-                <i class="fas fa-arrow-right"></i>
-            </button>
+        </div>
     </div>
+
 
     <!-- Footer -->
     <div class="footer">

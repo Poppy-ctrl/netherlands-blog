@@ -73,11 +73,6 @@ header {
     text-decoration: none;
 }
 
-.nav li a:hover {
-    background: #22433D;
-    transition: 0.5s;
-}
-
 .menu-toggle {
     display: none;
 }
@@ -373,12 +368,6 @@ header {
     gap: 30px;
 }
 
-.footer-bottom {
-    width: 100%;
-    height:auto;
-    text-align: center;
-}
-
 .newsletter {
     width: 100%;
     text-align: center;
@@ -431,27 +420,61 @@ input {
     background-color: #CCAEDA;
 }
 
+.footer-bottom {
+    width: 100%;
+    height:auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 /* Styling for the single post on the about page */
 .single-post .post-content {
     width: 80%;
+    height: 400px;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
 }
 
 .single-post .about-title {
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 50px;
 }
 
-.single-post .post-preview{ 
-    font-size: 1.1em;
+.single-post .first-about-post-preview{ 
+    font-size: x-large;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
-.single-post .post-preview .preview-text{ 
+.single-post .second-about-post-preview{ 
+    font-size: x-large;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.single-post .first-about-post-preview .preview-text{ 
     font-weight: 300;
 }
 
+.single-post .second-about-post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.about-me-image {
+    flex-basis: 50%; 
+}
+
+.about-me-image img{
+    width: 100%; 
+    height: 400px;
+    object-fit: cover;
+}
 .all-posts-title{
     text-align: center;
 }
@@ -477,6 +500,63 @@ input {
 
 .all-posts-image {
     width: 10px;
+}
+
+.full-post {
+    height: 400px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-info {
+    width: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.post-info h1 {
+    text-align: center;
+    font-size: xxx-large;
+}
+
+.post-info p {
+    text-align: center;
+    font-size: large;
+}
+
+.full-post .post-categories {
+    margin-top: 0.5em;
+    font-size: large;
+}
+
+.category-bubble {
+    border-radius: 30px;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin-right: 0.5em;
+    background-color: #CCAEDA;
+}
+
+.full-post-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.full-post-image img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.full-post-content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Media queries */
