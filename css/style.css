@@ -479,7 +479,7 @@ input {
 /* Styling for the single post on the about page */
 .single-post .post-content {
     width: 80%;
-    height: 400px;
+    height: 600px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -521,8 +521,8 @@ input {
 
 .about-me-image img{
     width: 100%; 
-    height: 400px;
-    object-fit: cover;
+    height: 600px;
+    object-fit: contain;
 }
 .all-posts-title{
     text-align: center;
