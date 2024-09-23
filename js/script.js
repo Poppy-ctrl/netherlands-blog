@@ -68,6 +68,7 @@ $(document).ready(function() {
         $('input[type=checkbox]:checked').each(function() {
             categories.push($(this).val());
         });
+
         let date = new Date().toISOString(); // Full ISO date with timestamp
 
         // Create an object for the draft
@@ -183,7 +184,12 @@ $(document).ready(function() {
                 // Populate form fields with draft data
                 $('#post-title').val(draftToEdit.title);
                 $('#post-content').val(draftToEdit.content);
-                $('#categories').val(draftToEdit.categories);
+
+                // Set checkboxes based on the loaded categories
+                draftToEdit.categories.forEach(category => {
+                    $(`input[type="checkbox"][value="${category}"]`).prop('checked', true);
+                });
+
                             // Show image preview if it exists
                 if (draftToEdit.image) {
                     $('#image-preview').attr('src', draftToEdit.image).show();
@@ -305,6 +311,14 @@ $(document).ready(function() {
             console.log('Published Posts:', publishedPosts); // Log published posts to verify data
         }
     }
+    
+    //formatting category names 
+    function formatCategoryName(category) {
+        return category
+            .split('-') // Split by dash
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+            .join(' '); // Join the words back together
+    }
 
     // Load published posts into all posts page
     function loadPublishedPostsOnAllPostsPage() {
@@ -329,7 +343,7 @@ $(document).ready(function() {
                                 ${post.content.substring(0, 150)}... <!-- Show a preview of the content -->
                             </p>
                             <div class="post-categories">
-                            ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                                ${post.categories.map(category => `<span class="category-bubble">${formatCategoryName(category)}</span>`).join('')}
                             </div>
                             <div class="all-posts-image">
                             ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
@@ -452,7 +466,7 @@ $(document).ready(function() {
                         <h1>${post.title}</h1>
                         <p class="post-date">${formatDate(post.date)}</p>
                         <div class="post-categories">
-                            ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                            ${post.categories.map(category => `<span class="category-bubble">${formatCategoryName(category)}</span>`).join('')}
                         </div>
                     </div>
                 </div>
@@ -461,50 +475,131 @@ $(document).ready(function() {
         }
     }
 
-    // Load posts for the selected category
     function loadCategories() {
-        console.log("loadCategories() is running");  // Debugging log
-        const selectedCategory = getQueryParam('category');
-        if ($('body').hasClass('categories-posts-page')) {
+        // Get the selected category from the body data attribute
+        const selectedCategory = document.body.getAttribute('data-category');
+    
+        if (document.body.classList.contains('categories-posts-page')) {
             let publishedPosts = JSON.parse(localStorage.getItem('publishedPosts')) || [];
-            console.log("Selected Category:", selectedCategory); // Log the selected category
-            const categoryPostsList = $('#category-posts');
-
-            localStorage.setItem('publishedPosts', JSON.stringify([{id: 1, title: 'Sample Post', categories: ['Language', 'Culture'], content: 'This is a sample post.', date: new Date().toISOString()}]));
-
-
-
+            const categoryPostsList = document.getElementById('category-posts');
+    
             // Clear any existing content
-            categoryPostsList.empty();
-
+            categoryPostsList.innerHTML = '';
+    
             // Filter posts based on the selected category
-            const categoryFinder = publishedPosts.filter(post => post.categories.includes(selectedCategory));
-            console.log("Filtered Posts:", categoryFinder);
-
-            // Loop through filtered posts and append them to the list
+            const categoryFinder = publishedPosts.filter(post => {
+                // Ensure categories exist and is an array before using .includes()
+                return post.categories && Array.isArray(post.categories) && post.categories.includes(selectedCategory);
+            });
+    
+            // Display the filtered posts
             if (categoryFinder.length > 0) {
                 categoryFinder.forEach(post => {
-                    categoryPostsList.append(`
+                    categoryPostsList.innerHTML += `
                         <div class="all-posts">
                             <div class="post-preview">
                                 <h2><a href="full-post.html?id=${post.id}">${post.title}</a></h2>
                                 <p class="post-date">${formatDate(post.date)}</p>
                                 <p class="preview-text">${post.content.substring(0, 150)}...</p>
                                 <div class="post-categories">
-                                    ${post.categories.map(category => `<span class="category-bubble">${category}</span>`).join('')}
+                                    ${post.categories.map(category => `<span class="category-bubble">${formatCategoryName(category)}</span>`).join('')}
                                 </div>
                                 <div class="all-posts-image">
                                     ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
                                 </div>
                             </div>
                         </div>
-                    `);
+                    `;
                 });
             } else {
-                categoryPostsList.append('<p>No posts found for this category.</p>'); // Message if no posts match
+                categoryPostsList.innerHTML = '<p>No posts found for this category.</p>';
             }
         }
     }
+    document.addEventListener('DOMContentLoaded', loadCategories);
+
+    // Detect category based on the page or a data attribute
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('my-life');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('job-hunting');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('dutch-culture');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('visa');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('career-building');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('housing');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('healthcare');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('dutch-attractions');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('language');
+            loadCategories(category);
+        }
+    });
+    $(document).ready(function() {
+        const body = $('body');
+
+        if (body.hasClass('categories-posts-page')) {
+            const category = body.data('dutch-holidays');
+            loadCategories(category);
+        }
+    });
+
     
     // Call all load functions
     loadPublishedPosts();
