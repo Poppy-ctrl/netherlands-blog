@@ -1,0 +1,647 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', serif;
+    font-weight: normal;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: #F4F1DE;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none; /* Ensures no underline on hover */
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+header {
+    background: #F4F1DE;
+    height: 66px;
+    margin-top: 20px;
+}
+
+.logo, .nav, .menu-toggle {
+    color: #22433D
+}
+
+.logo {
+    float: left;
+    height: inherit;
+    margin-left: 2em;
+    margin-top: 0.25em;
+}
+
+.logo-text {
+    margin: 8px;
+}
+
+.logo-text span {
+    color: #F4F1DE;
+}
+
+.nav {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.nav li {
+    float: left;
+    position: relative;
+}
+
+.nav li a {
+    color: #22433D;
+    display: block;
+    padding: 21px;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+
+.nav li ul li a:hover {
+    background: #006669; 
+    transition: 0.5s;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for the main content area */
+.content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Ensure the topics and recent posts are stacked vertically */
+    gap: 20px; /* Space between sections */
+}
+
+/* Container for the main content section */
+.content .main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+}
+
+/* Topics Section */
+.topics {
+    width: 80%;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.topic-container {
+    display: flex; /* Flexbox for horizontal layout */
+    flex-direction: row; /* Arrange items in a row */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+    gap: 10px;
+    justify-content: center;
+}
+
+.topic-name {
+    display: inline-flex; /* Use inline-flex to fit snugly around content */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    padding: 10px; /* Padding inside each topic box */
+    border: 2px solid #22433D; /* Border around each topic box */
+    border-radius: 30px; /* Rounded corners */
+    margin: 5px; /* Margin to add space between boxes */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.topic-name h2 {
+    font-size: xx-large; /* Font size for each topic item */
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center text within each topic box */
+}
+
+.topic-name h2 a {
+    color: #22433D; /* Color for the links */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.topic-name:hover {
+    background-color: #22433D; /* Background color on hover */
+    color: #ffffff;
+}
+
+.topic-name:hover h2 a {
+    color: #ffffff;
+}
+
+/* Latest Post Section */
+.latest-post .post-preview {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 480px; 
+    overflow: hidden;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -160px;
+    background-color: #22433d;
+    font-size: 30px;
+}
+
+/* Styling for the image in latest post */
+.post-image {
+    flex-basis: 50%; 
+}
+
+.post-image img {
+    width: 100%; 
+    height: auto;
+    padding-right: 24.5%;
+}
+
+/* Styling for the post details */
+.post-details {
+    flex-basis: 70%; 
+    text-align: left;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+}
+
+.post-details h2 {
+    color: #F4F1DE;
+    font-size: 50px; 
+}
+
+/* Styling for the post link inside the title */
+.post-details h2 a {
+    color: inherit; 
+}
+
+.post-details .preview-text {
+    color: #F4F1DE;
+    font-size: 25px;
+    font-weight: 200;
+    margin-bottom: 25px;
+}
+
+.post-details .post-date {
+    color: #F4F1DE;
+    font-size: 25px; 
+    font-weight: 200;
+}
+
+.btn-latest {
+    width: 10%;
+    height: 60px;
+    margin-top: 40px;
+    margin-left: 14%;
+    margin-bottom: 100px;
+    background-color: #CCAEDA;
+    border: transparent;
+    border-radius: 50px;
+    font-size: larger;
+}
+
+
+/* Recent Posts Section */
+.recent-posts-title {
+    text-align: left;
+    margin-left: 230px;
+    color: #22433D;
+}
+
+.recent-posts-list {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 50px;
+    justify-content: center; 
+    width: 100%; 
+}
+
+/* Individual post styling */
+.recent-posts-list .post {
+    width: 25%;
+    height: 600px;
+    display: flex; 
+    flex-direction: column; 
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: #CCAEDA;
+}
+
+/* Text preview styling within a post */
+.recent-posts-list .post .post-preview {
+    width: 100%;
+    height: auto;
+}
+
+/* Styling for the image in latest post */
+.recent-post-image {
+    flex-basis: 80%; 
+}
+
+.recent-post-image img {
+    width: 100%; 
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Styling for the post details */
+.recent-post-details {
+    text-align: left; 
+    padding-left: 40px;
+}
+
+.recent-post-details h2 {
+    font-size: 30px;
+    min-height: 80px;
+}
+
+.recent-post-details h2 a {
+    color: black;
+}
+
+/* Independent styling for the date */
+.recent-post-details .post-date {
+    font-size: 20px; 
+    font-weight: 300;
+}
+
+/* Styling for see all posts button */
+.btn {
+    width: 13%;
+    height: 60px;
+    margin-left: 77%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    background-color: #CCAEDA;
+    border: transparent;
+    border-radius: 50px;
+    font-size: 20px;
+}
+
+/* Footer */
+.footer {
+    min-height: 400px;
+    position: relative;
+    clear: both;
+    width: 100%;
+    display: flex;
+}
+
+.footer .footer-content {
+    display: flex;
+    width: 100%;
+    background-color: #22433d;
+    color: #F4F1DE;
+}
+
+.footer .footer-section-contact {
+    flex: 2; 
+    padding-left: 10%;
+    padding-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.footer .footer-section-contact h2{
+    font-size: xxx-large;
+}
+
+.footer .footer-section-contact h3{
+    font-size: large;
+}
+
+.footer .footer-section-illustration {
+    flex: 1; 
+    height: 400px;
+    box-sizing: border-box;
+}
+
+.footer .footer-section-illustration img{
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+.footer .contact-info {
+    margin-top: auto;
+    margin-bottom: auto;
+    flex: 2.5; 
+}
+.footer .footer-section-contact-choices {
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 10%;
+    margin-top: auto;
+    margin-bottom: 50px;
+}
+
+.email h2 {
+    font-size: xx-large;
+}
+
+.socials {
+    font-size: x-large;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    width: 80%;
+}
+
+.socials .instagram {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials .linkedin {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials .github {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials h2{
+    font-size: large;
+    margin-bottom: auto;
+    margin-top: auto;
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+}
+
+.newsletter {
+    width: 100%;
+    text-align: center;
+}
+
+.newsletter h2 {
+    font-size: xxx-large;
+    color: #22433D;
+}
+
+.newsletter h3 {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+    color: #22433D;
+}
+
+.newsletter-sign-up {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    border: 2px solid #22433D; 
+    border-radius: 30px; 
+    margin-bottom: 50px;
+}
+
+.email-input {
+    display: flex;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-right: 10px;
+    font-size: large;
+    flex: 2;
+    border: none;
+    border-bottom: 1px solid #22433D;
+    background-color: #F4F1DE;
+}
+
+.btn-email-submit {
+    border: none;
+    border-radius: 20px;
+    background-color: #CCAEDA;
+}
+
+.footer-bottom {
+    width: 100%;
+    height:auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the single post on the about page */
+.single-post .post-content {
+    width: 80%;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.single-post .about-title {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.single-post .first-about-post-preview{ 
+    font-size: x-large;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.single-post .second-about-post-preview{ 
+    font-size: x-large;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.single-post .first-about-post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.single-post .second-about-post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.about-me-image {
+    flex-basis: 50%; 
+}
+
+.about-me-image img{
+    width: 100%; 
+    height: 600px;
+    object-fit: contain;
+}
+.all-posts-title{
+    text-align: center;
+}
+
+.all-posts-list{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.all-posts .post-preview {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 400px; 
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #22433d;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.all-posts-image {
+    width: 10px;
+}
+
+.full-post {
+    height: 400px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-info {
+    width: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.post-info h1 {
+    text-align: center;
+    font-size: xxx-large;
+}
+
+.post-info p {
+    text-align: center;
+    font-size: large;
+}
+
+.full-post .post-categories {
+    margin-top: 0.5em;
+    font-size: large;
+}
+
+.category-bubble {
+    border-radius: 30px;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin-right: 0.5em;
+    background-color: #CCAEDA;
+}
+
+.full-post-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.full-post-image img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.full-post-content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Media queries */
+@media only screen and (max-width: 831px){
+    header {
+        position: relative;
+    }
+    .nav {
+        width: 100%;
+        background: #22433D;
+        max-height: 0px;
+        overflow: hidden;
+    }
+    .nav.showing {
+        max-height: 100em;
+    }
+    .nav li {
+        width: 100%; 
+    }
+    .nav li ul {
+        position: static; 
+        display: block;
+        width: 100%;
+    }
+    .nav li ul li a{
+        padding-left: 50px;
+    }
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+        font-size: 1.9em;
+    }
+    .logo {
+        margin-left: 1.25em;
+        margin-top: 0.2em;
+    }
+}
