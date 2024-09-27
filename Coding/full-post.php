@@ -1,113 +1,79 @@
-<?php
-include "logic.php";
-
-$newestpostRows = postingNewestPost($conn);
-$recentpostsRows = postingRecentPosts($conn);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Font awesome link -->
     <script src="https://kit.fontawesome.com/848e24f63c.js" crossorigin="anonymous"></script>
-    
+
     <!-- Google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    
+
     <!-- Custom styling -->
     <link rel="stylesheet" href="css/style.css">
-    <title>Blog</title>
+    <title>Full Post</title>
 </head>
 
-<body class="homepage"> 
+<body class="full-post-page">
     <header>
         <div class="logo">
-            <h1 class="logo-text">Crocs & Clogs</h1> 
+            <h1 class="logo-text">Crocs & Clogs</h1>
         </div>
         <!-- Page Tabs -->
         <i class="fa fa-bars menu-toggle"></i>
         <ul class="nav">
-            <li><a href="#" id="home-link" >Home</a></li>
+            <li><a href="#" id="home-link">Home</a></li>
             <li><a href="#" id="about-link">About</a></li>
             <li><a href="#" id="all-posts-link">All Posts</a></li>
             <li><a href="#" id="resources-link">Resources</a></li>
         </ul>
     </header>
 
-    <!-- Content Topics -->
     <div class="content clearfix">
-        <div class="main-content">
-            <div class="topics">
-                <div class="topic-container">
-                    <div class="topic-name">
-                        <h2><a href="my-life.html">My Life</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="job-hunting.html">Job hunting</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="dutch-culture.html">Dutch Culture</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="visa.html">VISA</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="career-building.html">Career Building</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="housing.html">Housing</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="healthcare.html">Healthcare</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="dutch-attractions.html">Dutch Attractions</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="language.html">Language</a></h2>
-                    </div>
-                    <div class="topic-name">
-                        <h2><a href="dutch-holidays.html">Dutch Holidays</a></h2>
-                    </div>
-                </div>
-            </div>
+    <div class="main-content" id="full-post-container">
+        
+        <?php
+        include "logic.php";
 
-            <div id="latest-post" class="latest-post">
-                <div class="post">
-                <?php echo $newestpostRows; ?>
-                </div>
-            </div>
-            <button type="button" class="btn-latest">
-                Latest Post!
-                <i class="fa-solid fa-star"></i>
-            </button>
-            
-            <h1 class="recent-posts-title">Recent Posts <i class="fas fa-arrow-down"></i></h1>
-            <div id="recent-posts-list" class="recent-posts-list">
-            <?php echo $recentpostsRows; ?>
-            </div>
-            <button type="button" class="btn">
-                See all posts
-                <i class="fas fa-arrow-right"></i>
-            </button>
+        // Display Full Post
+        $postId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $post = getFullPost($conn, $postId);
+        if ($post) {
+            $formattedDate = formatDate($post['created_at']); // Ensure this function exists
+            echo "<div class='full-post'>
+                    <div class='full-post-image'>
+                        <img src='../Styling/" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>
+                    </div>
+                    <div class='post-info'>
+                        <h1>" . htmlspecialchars($post['title']) . "</h1>
+                        <p class='post-date'>{$formattedDate}</p>
+                        <div class='post-categories'>"
+                            . formatCategories($post['categories']) .
+                        "</div>
+                        <div class='post-url'>";
+                        if (!empty($post['url'])) {
+                            echo "<a href='" . htmlspecialchars($post['url']) . "' target='_blank'>" . htmlspecialchars($post['url']) . "</a>";
+                        } else {
+                            echo ""; 
+                        }
+                        echo "</div>
+                    </div> <!-- End of post-info -->
+                </div>";
+            echo "<div class='full-post-content'>
+                    <p>" . htmlspecialchars($post['post']) . "</p>
+                </div>";
+            } else {
+                echo "<p>Post not found.</p>";
+            }
+        ?>
     </div>
+</div>
 
-    <div class="newsletter">
-        <h2>Get all my updates</h2>
-        <h3>Did you know I also have a newsletter? Sign up here to get notified about my latest posts straight to your email inbox as soon as they're uploaded!</h3>
-        <div class="newsletter-sign-up">
-            <form id="email-input" class="email-input">
-                <input type="text" id="email-address" name="email-address" class="text-input" placeholder="Your email">
-                <button type="submit" class="btn-email-submit"><i class="fas fa-arrow-right"></i></button>
-            </form>
-        </div>
-    </div>
+
+
 
     <!-- Footer -->
     <div class="footer">
@@ -161,6 +127,17 @@ $recentpostsRows = postingRecentPosts($conn);
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="newsletter">
+        <h2>Crocs & Clogs</h2>
+        <h3>Did you know I also have a newsletter? Sign up here to get notified about my latest posts straight to your email inbox as soon as they're uploaded!</h3>
+        <div class="newsletter-sign-up">
+            <form id="email-input" class="email-input">
+                <input type="text" id="email-address" name="email-address" class="text-input" placeholder="Your email">
+                <button type="submit" class="btn-email-submit"><i class="fas fa-arrow-right"></i></button>
+            </form>
         </div>
     </div>
 

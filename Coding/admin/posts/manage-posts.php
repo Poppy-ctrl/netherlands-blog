@@ -1,28 +1,37 @@
 <?php
-include "/../../logic.php"
 
-//deleting drafts from the draftposts table
-if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] === 'delete draft') {
+include "../../logic.php"; 
+
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Deleting drafts from the draftposts table
+if (isset($_GET['id'], $_GET['action']) && $_GET['action'] === 'delete draft') {
     $id = intval($_GET['id']);
+    $deleteQuery = "DELETE FROM draftposts WHERE id = ?";
+    $stmt = $conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $id);
 
-    $deleteQuery = "DELETE FROM draftposts WHERE id = $id";
-    if (mysqli_query($conn, $deleteQuery)) {
+    if ($stmt->execute()) {
         header("Location: manage-posts.php");
         exit();
     } else {
-        echo "Error deleting post: " . mysqli_error($conn);
+        echo "Error deleting draft: " . mysqli_error($conn);
     }
 }
 
-//move drafts to published table on publish
-if (isset($_GET['action']) && $_GET['action'] === 'publish' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $draftQuery = "SELECT * FROM draftposts WHERE id = $id";
-    $draftResult = mysqli_query($conn, $draftQuery);
+// Move drafts to published table on publish
+if (isset($_GET['action'], $_GET['id']) && $_GET['action'] === 'publish') {
+    $id = intval($_GET['id']);
+    $draftQuery = "SELECT * FROM draftposts WHERE id = ?";
+    $stmt = $conn->prepare($draftQuery);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $draftResult = $stmt->get_result();
     
     if ($draftResult) {
-        $draft = mysqli_fetch_assoc($draftResult);
+        $draft = $draftResult->fetch_assoc();
 
         $title = $draft['title'];
         $post = $draft['post'];
@@ -30,13 +39,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'publish' && isset($_GET['id']
         $url = $draft['url'];
         $categories = $draft['categories'];
 
-        $publishQuery = "INSERT INTO publishedposts (title, post, image, url, categories) VALUES ('$title', '$post', '$image', " . ($url ? "'$url'" : "NULL") . ", '$categories')";
+        $publishQuery = "INSERT INTO publishedposts (title, post, image, url, categories) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($publishQuery);
+        $stmt->bind_param("sssss", $title, $post, $image, $url, $categories);
 
-        // Execute the insert query
-        if (mysqli_query($conn, $publishQuery)) {
-            $deleteQuery = "DELETE FROM draftposts WHERE id = $id";
-            mysqli_query($conn, $deleteQuery);
-
+        if ($stmt->execute()) {
+            $deleteQuery = "DELETE FROM draftposts WHERE id = ?";
+            $stmt = $conn->prepare($deleteQuery);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
             header("Location: manage-posts.php");
             exit();
         } else {
@@ -45,12 +56,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'publish' && isset($_GET['id']
     }
 }
 
-//deleting posts from the publishedposts table
-if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] === 'delete post') {
+// Deleting posts from the publishedposts table
+if (isset($_GET['id'], $_GET['action']) && $_GET['action'] === 'delete post') {
     $id = intval($_GET['id']);
-
-    $deleteQuery = "DELETE FROM publishedposts WHERE id = $id";
-    if (mysqli_query($conn, $deleteQuery)) {
+    $deleteQuery = "DELETE FROM publishedposts WHERE id = ?";
+    $stmt = $conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
         header("Location: manage-posts.php");
         exit();
     } else {
@@ -58,9 +70,9 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] === 'delete 
     }
 }
 
+// Fetch drafts and published posts
 $draftsRows = fetchDraftPosts($conn);
 $publishedRows = fetchPublishedPosts($conn);
-
 ?>
 
 <!DOCTYPE html>
@@ -132,3 +144,4 @@ $publishedRows = fetchPublishedPosts($conn);
     <script src="../../js/script.js"></script>
 </body>
 </html>
+

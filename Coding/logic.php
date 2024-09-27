@@ -181,7 +181,17 @@ function getOrdinalSuffix($day) {
     }
 }
 
-// Fetching all published posts from table onto all posts page
+function formatCategories($categoriesString) {
+    $categoriesArray = explode(',', $categoriesString);
+    // Limit to 3 categories if there are more than 3
+    $categoriesArray = array_slice($categoriesArray, 0, 3);
+    $categoryBubbles = array_map(function($category) {
+        return '<span class="category-bubble">' . htmlspecialchars(trim($category)) . '</span>'; // Trim whitespace and escape HTML
+    }, $categoriesArray);
+    return implode(' ', $categoryBubbles);
+}
+
+// all published posts from table onto all posts page
 function postingAllPosts($conn) {
     $allpostsQuery = "SELECT * FROM publishedposts ORDER BY created_at DESC";
     $allpostsResult = mysqli_query($conn, $allpostsQuery);
@@ -203,11 +213,9 @@ function postingAllPosts($conn) {
                         <p class='preview-text'>
                             " . htmlspecialchars(substr($row['post'], 0, 150)) . "...
                         </p>
-                        <div class='post-categories'>
-                            " . htmlspecialchars($row['categories']) . "
-                        </div>
+                        <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
                         <div class='all-posts-image'>
-                            <img src='../../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
                         </div>";
 
         // Show the full URL if present within the post preview
@@ -217,9 +225,118 @@ function postingAllPosts($conn) {
                       </div>";
         }
 
-        $rows .= "</div> <!-- Close post-preview div -->
-                </div>"; // Close all-posts div
+        $rows .= "</div></div>";
     }
+    return $rows;
+}
+
+// Load newest post into homepage
+function postingNewestPost($conn) {
+    $newestpostQuery = "SELECT id, title, post, categories, image, created_at FROM publishedposts ORDER BY ID DESC LIMIT 1";
+    $newestpostResult = mysqli_query($conn, $newestpostQuery);
+
+    // Check for errors
+    if (!$newestpostResult) {
+        return "Error fetching newest published posts: " . mysqli_error($conn);
+    }
+
+    $rows = '';
+    while ($row = mysqli_fetch_assoc($newestpostResult)) {
+        // Debug: Check if date is formatted correctly
+        if (!function_exists('formatDate')) {
+            return "Error: formatDate function is undefined.";
+        }
+
+        $formattedDate = formatDate($row['created_at']);
+
+        // Create a new post entry with the same structure and class names as in your JS
+        $rows .= "<div class='post'>
+                    <div class='post-preview'>
+                        <div class='post-details'>
+                            <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
+                            <p class='preview-text'>" . htmlspecialchars(substr($row['post'], 0, 150)) . "...</p>
+                            <p class='post-date'>{$formattedDate}</p>
+                        </div>
+                        <div class='post-image'>
+                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                        </div>
+                    </div>
+                </div>";
+    }
+    return $rows;
+}
+
+
+// Load 3 most recent posts into homepage
+function postingRecentPosts($conn) {
+    $recentpostsQuery = "SELECT id, title, image, created_at FROM publishedposts ORDER BY ID DESC LIMIT 3 OFFSET 1";
+    $recentpostsResult = mysqli_query($conn, $recentpostsQuery);
+
+    // Check for errors
+    if (!$recentpostsResult) {
+        return "Error fetching newest published posts: " . mysqli_error($conn);
+    }
+
+    $rows = '';
+    while ($row = mysqli_fetch_assoc($recentpostsResult)) {
+        $formattedDate = formatDate($row['created_at']);
+        $rows .= "<div class='post'>
+                    <div class='post-preview'>
+                        <div class='recent-post-image'>
+                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                        </div>
+                        <div class='recent-post-details'>
+                            <p class='post-date'>{$formattedDate}</p>
+                            <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
+                        </div>
+                    </div>
+                </div>";
+    }
+    return $rows;
+}
+
+function getFullPost($conn, $id) {
+    $query = "SELECT * FROM publishedposts WHERE id = {$id}";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        return "Error fetching post: " . mysqli_error($conn);
+    }
+
+    return mysqli_fetch_assoc($result); 
+}
+
+// Function to get posts by category
+function getPostsByCategory($conn, $category) {
+    $query = "SELECT * FROM publishedposts WHERE categories LIKE ? ORDER BY created_at DESC";
+    
+    $stmt = mysqli_prepare($conn, $query);
+    $param = '%' . $category . '%';
+    mysqli_stmt_bind_param($stmt, 's', $param);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Check for errors
+    if (!$result) {
+        return "Error fetching posts: " . mysqli_error($conn);
+    }
+
+    $rows = '';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $formattedDate = formatDate($row['created_at']);
+        $rows .= "<div class='all-posts'>
+                    <div class='post-preview'>
+                        <h2><a href='post.php?id={$row['id']}'>{$row['title']}</a></h2>
+                        <p class='post-date'>{$formattedDate}</p>
+                        <p class='preview-text'>" . htmlspecialchars(substr($row['post'], 0, 150)) . "...</p>
+                        <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
+                        <div class='all-posts-image'>
+                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                        </div>
+                      </div>
+                    </div>";
+    }
+    mysqli_stmt_close($stmt);
     return $rows;
 }
 
