@@ -1,5 +1,5 @@
 <?php
-include "../../../logic.php";
+include "/../../logic.php"
 
 //deleting drafts from the draftposts table
 if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] === 'delete draft') {
