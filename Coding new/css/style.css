@@ -1,0 +1,893 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', serif;
+    font-weight: normal;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: #F4F1DE;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none; /* Ensures no underline on hover */
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+header {
+    background: #F4F1DE;
+    height: 60px;
+    margin-top: 24px;
+    margin-bottom: 60px;
+}
+
+.logo, .nav, .menu-toggle {
+    color: #22433D
+}
+
+.logo {
+    float: left;
+    height: inherit;
+    margin-left: 2em;
+    margin-top: 0.25em;
+}
+
+.logo-text {
+    margin: 8px;
+    font-size: 36px;
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+}
+
+.logo-text span {
+    color: #F4F1DE;
+}
+
+.nav {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.nav li {
+    float: left;
+    position: relative;
+}
+
+.nav li a {
+    color: #22433D;
+    display: block;
+    padding: 21px;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+
+.nav li ul li a:hover {
+    background: #006669; 
+    transition: 0.5s;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for the main content area */
+.content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Ensure the topics and recent posts are stacked vertically */
+    gap: 20px; /* Space between sections */
+}
+
+/* Container for the main content section */
+.content .main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+}
+
+/* Topics Section */
+.topics {
+    width: 62.5%;
+    padding-left: 7%;
+    padding-right: 8%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+.topic-container {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 16px;
+}
+
+.topic-name {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding-left: 20px; 
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 2px solid #22433D;
+    border-radius: 30px;
+    box-sizing: border-box;
+}
+
+.topic-name h2 {
+    font-size: 24px; 
+    margin: 0; 
+    text-align: center;
+}
+
+.topic-name h2 a {
+    color: #22433D; /* Color for the links */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.topic-name:hover {
+    background-color: #22433D; /* Background color on hover */
+    color: #ffffff;
+}
+
+.topic-name:hover h2 a {
+    color: #ffffff;
+}
+
+/* Latest Post Section */
+
+.latest-post {
+    width: 100%;
+    background-color: #22433d;
+    height: 408px;
+}
+
+.latest-post .post-preview {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 408px; 
+    overflow: hidden;
+    width: 62.5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #22433d;
+    font-size: 30px;
+}
+
+/* Styling for the image in latest post */
+.post-image {
+    height: 306px;
+    display: flex;
+    justify-content: right;
+    padding-left: 5%;
+    padding-right: 5%;
+    align-items: center; 
+    border-radius: 50px;
+}
+
+.post-image img {
+    width: 306px; 
+    max-height: 100%;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+/* Styling for the post details */
+.post-details {
+    flex-basis: 50%; 
+    text-align: left;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+}
+
+.post-details h2 {
+    color: #F4F1DE;
+    font-size: 40px; 
+    margin-top: 70px;
+    line-height: 48px;
+    margin-bottom: 10px;
+}
+
+/* Styling for the post link inside the title */
+.post-details h2 a {
+    color: inherit; 
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+}
+
+.post-details .preview-text {
+    color: #F4F1DE;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 24px;
+}
+
+.post-details .post-date {
+    color: #F4F1DE;
+    font-size: 16px; 
+    font-weight: 300;
+    margin-bottom: 70px;
+}
+
+.btn-latest {
+    width: 10%;
+    height: 60px;
+    background-color: #CCAEDA;
+    border: transparent;
+    margin-left: 50px;
+    border-radius: 50px;
+    font-size: larger;
+    color: black;
+}
+
+
+/* Recent Posts Section */
+.recent-posts-title {
+    text-align: left;
+    width: 62.5%;
+    color: #22433D;
+    font-family: 'Eczar', serif;
+    font-weight: 700;
+    font-size: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    padding-left: 8%;
+}
+
+
+.recent-posts-list {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 32px;
+    justify-content: center; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 62.5%; 
+}
+
+/* Individual post styling */
+.recent-posts-list .post {
+    width: 30.2%;
+    height: 416px;
+    display: flex; 
+    flex-direction: column; 
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+/* Text preview styling within a post */
+.recent-posts-list .post .post-preview {
+    width: 100%;
+}
+
+/* Styling for the image in latest post */
+.recent-post-image {
+    height: 280px;
+}
+.recent-post-image img {
+    width: 100%; 
+    height: 275px;
+    object-fit: cover;
+}
+
+/* Styling for the post details */
+.recent-post-details {
+    padding-top: 8px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 28px;
+    width: 100%;
+    text-align: left; 
+    height: 141px;
+}
+
+.recent-post-details h2 {
+    font-size: 20px;
+    color: #22433d;
+}
+
+.recent-post-details h2 a {
+    color: #22433d;
+    font-weight: 500;
+}
+
+/* Independent styling for the date */
+.recent-post-details .post-date {
+    font-size: 12px; 
+    color: #97A7A4;
+    margin-bottom: -10px;
+}
+
+/* Styling for see all posts button */
+.see-all-posts-button {
+    width: 62.5%;
+    height: 46px;
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 60px;
+    text-align: right;
+    padding-right: 8%;
+
+}
+
+.btn {
+    width: 160px;
+    height: 100%;
+    background-color: #CCAEDA;
+    border: transparent;
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+/* Footer */
+.footer {
+    min-height: 400px;
+    width: 100%;
+}
+
+.footer .footer-content {
+    width: 62.5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #F4F1DE;
+    color: #22433d;
+}
+
+.footer .footer-section-contact {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 12%;
+}
+
+.footer .footer-section-contact h2{
+    font-size: 48px;
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+
+}
+
+.footer .footer-section-contact h3{
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: -50px;
+}
+
+.footer .contact-info {
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: auto;
+    padding-left: 12%;
+    padding-right: 12%;
+    gap: 64px;
+}
+
+.footer .footer-section-contact-choices {
+    text-align: left;
+}
+
+.email {
+    display: flex;
+    gap: 24px;
+}
+
+.name-star img {
+    height: 36px;
+    width: 36px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.email h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: auto;
+    margin-bottom: 24px;
+}
+
+.socials-poppy {
+    font-size: x-large;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    width: 70%;
+}
+
+.socials-poppy .instagram {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials-poppy .linkedin {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials-poppy .github {
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials-poppy h2{
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: auto;
+    margin-top: auto;
+    background-color: #CCAEDA;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+}
+
+.socials-jake {
+    font-size: x-large;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    width: 70%;
+}
+
+.socials-jake .website {
+    background-color: #C0CA65;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials-jake .linkedin {
+    background-color: #C0CA65;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socials-jake h2{
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: auto;
+    margin-top: auto;
+    background-color: #C0CA65;
+    color: #000000;
+    border: transparent;
+    border-radius: 50px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+}
+
+.footer .footer-section-contact-choices h3{
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.newsletter {
+    width: 100%;
+    background-color: #22433d;
+}
+
+.newsletter-content {
+    width: 62.5%;
+    height: 180px;
+    text-align: left;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    color: #F4F1DE;
+    gap: 32px;
+}
+
+.newsletter-info {
+    width: 100%;
+    height: 100%;
+}
+
+.newsletter h2 {
+    color: #F4F1DE;
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+    font-size: 40px;
+    padding-left: 25%;
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+
+.newsletter h3 {
+    font-size: 16px;
+    color: #F4F1DE;
+    padding-left: 25%;
+    font-weight: 300;
+}
+
+.newsletter-sign-up {
+    width: 70%;
+    height: 38px;
+    margin-right: 13%;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color:#F4F1DE;
+    border-radius: 30px; 
+}
+
+.email-input {
+    display: flex;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    background-color:#F4F1DE;
+}
+
+input {
+    margin-right: 10px;
+    font-size: large;
+    flex: 2;
+    border: none;
+    border-bottom: 1px solid #F4F1DE;
+    background-color: #F4F1DE;
+}
+
+.btn-email-submit {
+    border: none;
+    background-color: #F4F1DE;
+}
+
+.footer-bottom {
+    width: 100%;
+    height:auto;
+    text-align: center;
+    color: #22433d;
+}
+
+/* Styling for the single post on the about page */
+.single-post .post-content {
+    width: 70%;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.single-post .about-title {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.single-post .first-about-post-preview{ 
+    font-size: x-large;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.single-post .second-about-post-preview{ 
+    font-size: x-large;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.single-post .first-about-post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.single-post .second-about-post-preview .preview-text{ 
+    font-weight: 300;
+}
+
+.about-me-image {
+    flex-basis: 50%; 
+}
+
+.about-me-image img{
+    width: 100%; 
+    height: 600px;
+    object-fit: contain;
+}
+.all-posts-title{
+    text-align: center;
+}
+
+.all-posts-list{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.all-posts .post-preview {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 400px; 
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #22433d;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.all-posts-image {
+    width: 10px;
+}
+
+.full-post {
+    height: 400px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-info {
+    width: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.post-info h1 {
+    text-align: center;
+    font-size: xxx-large;
+}
+
+.post-info p {
+    text-align: center;
+    font-size: large;
+}
+
+.full-post .post-categories {
+    margin-top: 0.5em;
+    font-size: large;
+}
+
+.category-bubble {
+    border-radius: 30px;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin-right: 0.5em;
+    background-color: #CCAEDA;
+}
+
+.full-post-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.full-post-image img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.full-post-content {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Media queries */
+@media only screen and (max-width: 831px){
+    header {
+        position: relative;
+    }
+    .nav {
+        width: 100%;
+        background: #22433D;
+        max-height: 0px;
+        overflow: hidden;
+    }
+    .nav.showing {
+        max-height: 100em;
+    }
+    .nav li {
+        width: 100%; 
+    }
+    .nav li ul {
+        position: static; 
+        display: block;
+        width: 100%;
+    }
+    .nav li ul li a{
+        padding-left: 50px;
+    }
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+        font-size: 1.9em;
+    }
+    .logo {
+        margin-left: 1.25em;
+        margin-top: 0.2em;
+    }
+}
+
+/* Small Laptops */
+@media only screen and (min-width: 1280px) and (max-width: 1366px) {
+    /* Recent Posts Section */
+    .recent-posts-title {
+        padding-left: 3%;
+    }
+    .recent-posts-list .post {
+        width: 27%;
+    }
+    .see-all-posts-button {
+        padding-right: 3.5%;
+    }
+    /* Newsletter */
+    .newsletter h2 {
+        padding-left: 10%;
+    }
+    .newsletter h3 {
+        padding-left: 10%;
+    }
+    .newsletter-sign-up {
+        margin-right: 6%;
+    }
+    /* Footer section */
+    .footer .footer-section-contact {
+        padding-left: 5%;
+    }
+    .footer .contact-info {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .footer .footer-section-contact-choices {
+        gap: 40px;
+    }
+    .socials-poppy{
+        flex-wrap: wrap;
+    }
+}
+
+/* Medium Laptops */
+@media only screen and (min-width: 1367px) and (max-width: 1536px) {
+    /* Topics Section */
+    .topics {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+    /* Recent Posts Section */
+    .recent-posts-title {
+        padding-left: 5%;
+    }
+    .recent-posts-list .post {
+        width: 26%;
+    }
+    .see-all-posts-button {
+        padding-right: 5%;
+    }
+    /* Newsletter */
+    .newsletter h2 {
+        padding-left: 15%;
+    }
+    .newsletter h3 {
+        padding-left: 15%;
+    }
+    .newsletter-sign-up {
+        margin-right: 8%;
+    }
+    /* Footer section */
+    .footer .footer-section-contact {
+        padding-left: 8%;
+    }
+    .footer .contact-info {
+        padding-left: 8%;
+        padding-right: 8%;
+    }
+}
+
+/* Large Laptops */
+@media (min-width: 1537px) and (max-width: 1920px) {
+    /* Topics Section */
+    .topics {
+    padding-left: 1%;
+    padding-right: 1%;
+    }
+    /* Recent Posts Section */
+    .post-image {
+    padding-right: 0%;
+    }
+    .post-details {
+    padding-left: 0%;
+    }
+    .recent-posts-title {
+        padding-left: 3.5%;
+    }
+    .recent-posts-list .post {
+        width: 27.5%;
+    }
+    .see-all-posts-button {
+        padding-right: 3.5%;
+    }
+    /* Newsletter */
+    .newsletter h2 {
+        padding-left: 12.5%;
+    }
+    .newsletter h3 {
+        padding-left: 12.5%;
+    }
+    .newsletter-sign-up {
+        margin-right: 5.5%;
+    }
+    /* Footer section */
+    .footer .footer-section-contact {
+        padding-left: 6%;
+    }
+    .footer .contact-info {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+}
+
