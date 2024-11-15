@@ -141,13 +141,13 @@ $recentpostsRows = postingRecentPosts($conn);
                     </div>
                     <div class="socials-poppy">
                     <h2>crocsandclogsblog@gmail.com</h2>
-                        <div class="instagram">
+                        <div class="instagram" data-url="https://www.instagram.com/poppaleeki?igsh=a2V1NTJla21rM3N6&utm_source=qr">
                             <i class="fa-brands fa-instagram"></i>
                         </div>
-                        <div class="linkedin">
+                        <div class="linkedin" data-url="https://www.linkedin.com/in/poppybennett?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">
                             <i class="fa-brands fa-linkedin"></i>
                         </div>
-                        <div class="github">
+                        <div class="github" data-url="https://github.com/Poppy-ctrl">
                             <i class="fa-brands fa-square-github"></i>
                         </div>
                     </div>
@@ -168,18 +168,18 @@ $recentpostsRows = postingRecentPosts($conn);
                     </div>
                     <div class="socials-jake">
                         <h2>bennett_jl@yahoo.com</h2>
-                        <div class="website">
+                        <div class="website" data-url="https://www.jakebennett.co">
                             <i class="fa-regular fa-file-code"></i>
                         </div>
-                        <div class="linkedin">
+                        <div class="linkedin" data-url="https://www.linkedin.com/in/bennettjakr/">
                             <i class="fa-brands fa-linkedin"></i>
                         </div>
                     </div>
                     <h3>
                     <p>
-                    As the designer of this website, I had the opportunity to bring Poppy’s story to life through visuals. 
-                    Collaborating on this project allowed me to blend creativity with her journey, 
-                    crafting a design that reflects her experiences in the Netherlands.
+                    I’m a graphic and motion designer and I love telling stories through visuals. 
+                    This project was the perfect collaboration - combining my skills and Poppy’s brains - 
+                    to craft a blog that captures her personality and Dutch adventures.
                     </p>
                     </h3>
                     <br>

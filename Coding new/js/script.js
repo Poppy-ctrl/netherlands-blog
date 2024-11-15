@@ -28,6 +28,18 @@ $(document).ready(function() {
         e.preventDefault();
         window.location.href='all-posts.php';
     });
+
+    $('.socials-poppy div').on('click', function(e) {
+        e.preventDefault();
+        var url = $(this).data('url');
+        window.location.href = url;
+    });
+
+    $('.socials-jake div').on('click', function(e) {
+        e.preventDefault();
+        var url = $(this).data('url');
+        window.location.href = url;
+    });
 });
 
 

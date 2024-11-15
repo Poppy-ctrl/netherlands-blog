@@ -206,22 +206,18 @@ function postingAllPosts($conn) {
         // Create a new post entry
         $rows .= "<div class='all-posts'>
                     <div class='post-preview'>
-                        <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
-                        <p class='post-date'>{$formattedDate}</p>
-                        <p class='preview-text'>
-                            " . htmlspecialchars(substr($row['post'], 0, 150)) . "...
-                        </p>
-                        <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
+                        <div class='all-posts-info'>
+                            <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
+                            <p class='post-date'>{$formattedDate}</p>
+                            <p class='preview-text'>
+                                " . htmlspecialchars(substr($row['post'], 0, 150)) . "...
+                            </p>
+                            <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
+                        </div>
                         <div class='all-posts-image'>
                             <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
-                        </div>";
-
-        // Show the full URL if present within the post preview
-        if (!empty($row['url'])) {
-            $rows .= "<div class='post-url'>
-                        <a href='" . htmlspecialchars($row['url']) . "'>" . htmlspecialchars($row['url']) . "</a>
-                      </div>";
-        }
+                        </div>
+                    </div>";
 
         $rows .= "</div></div>";
     }
