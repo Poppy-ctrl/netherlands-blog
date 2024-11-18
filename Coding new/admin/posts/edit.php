@@ -35,8 +35,10 @@ if (isset($_GET['id'])) {
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($draft['id']); ?>">
                 <input type="hidden" name="current_image" value="<?php echo htmlspecialchars($draft['image']); ?>">
                 <input type="text" id="post-title" name="title" class="text-input" placeholder="Title" value="<?php echo htmlspecialchars($draft['title']); ?>">
-                <textarea id="post-content" name="post" class="text-input" placeholder="Your Post"><?php echo htmlspecialchars($draft['post']); ?></textarea>
                 
+                <!-- Textarea for post content -->
+                <textarea id="post" name="post" class="text-input" placeholder="Your Post"><?php echo htmlspecialchars($draft['post']); ?></textarea>
+
                 <label for="categories">Choose a category:</label>
                 <div class="categories">
                     <?php
@@ -64,7 +66,7 @@ if (isset($_GET['id'])) {
                 <label for="post-image">Current Image:</label>
                 <?php if ($draft['image']): ?>
                     <div>
-                        <img src="../../../Styling/<?php echo htmlspecialchars($draft['image']); ?>" alt="image" style="width:100px;height:auto;">
+                        <img src="../../../Styling/Post_photos/<?php echo htmlspecialchars($draft['image']); ?>" alt="image" style="width:100px;height:auto;">
                     </div>
                 <?php else: ?>
                     <p>No image uploaded.</p>
@@ -81,9 +83,22 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 
+    <!-- Initialize TinyMCE on the 'post' textarea -->
+    <script src="https://cdn.tiny.cloud/1/knman3bnv0js3pvnf1pahlq19whs3qav1ak39ip6tesseovx/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#post',  // Use the ID of the textarea you want to apply TinyMCE to
+            plugins: 'paste',
+            paste_as_text: true, // Strip unwanted formatting
+            valid_elements: '*[*]',  // Allow all elements
+            extended_valid_elements: 'p[class],strong/b,em,i', // Allow specific HTML elements
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../js/script.js"></script>
 
 </body>
 </html>
+
 

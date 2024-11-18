@@ -100,7 +100,6 @@ $recentpostsRows = postingRecentPosts($conn);
             <div class="see-all-posts-button">
                 <button type="button" class="btn" id="see-all-posts-button">
                     See all posts
-                    <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
     </div>
@@ -114,7 +113,7 @@ $recentpostsRows = postingRecentPosts($conn);
             <div class="newsletter-sign-up">
                 <form id="email-input" class="email-input" method="POST">
                     <input type="text" id="email-address" name="email" class="text-input" placeholder="Your email">
-                    <button name="submit-email" type="submit-email" class="btn-email-submit"><i class="fas fa-arrow-right"></i></button>
+                    <button name="submit-email" type="submit-email" class="btn-email-submit"><i class="fa-solid fa-heart"></i>
                 </form>
             </div>
         </div>
@@ -188,7 +187,7 @@ $recentpostsRows = postingRecentPosts($conn);
         </div>
     </div>
 
-    <div class="footer-bottom">
+    <div class="home-footer-bottom">
         &copy; 2024 Crocs & Clogs. All rights reserved. Designed by Poppy and Jake Bennett
     </div>
 

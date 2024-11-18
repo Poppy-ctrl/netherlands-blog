@@ -40,6 +40,16 @@ $(document).ready(function() {
         var url = $(this).data('url');
         window.location.href = url;
     });
+
+    document.getElementById("yourForm").addEventListener("submit", function(event) {
+        // Get the raw HTML content from TinyMCE
+        let content = tinymce.get("yourTextareaId").getContent();
+        
+        // Make sure that the content is updated in the form textarea field
+        document.getElementById("yourTextareaId").value = content;
+    });
+    
+    
 });
 
 

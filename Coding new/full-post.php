@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     
-    <!-- Custom styling -->
+    <!-- Custom -->
     <link rel="stylesheet" href="css/style.css">
     <title>Full Post</title>
 </head>
@@ -50,7 +50,7 @@
             $formattedDate = formatDate($post['created_at']); // Ensure this function exists
             echo "<div class='full-post'>
                     <div class='full-post-image'>
-                        <img src='../Styling/" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>
+                        <img src='../Styling/Post_photos/" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>
                     </div>
                     <div class='post-info'>
                         <h1>" . htmlspecialchars($post['title']) . "</h1>
@@ -67,9 +67,9 @@
                         echo "</div>
                     </div> <!-- End of post-info -->
                 </div>";
-            echo "<div class='full-post-content'>
-                    <p>" . htmlspecialchars($post['post']) . "</p>
-                </div>";
+            echo "<div class='full-post-content'>";
+            echo $post['post']; 
+            echo "</div>";
             } else {
                 echo "<p>Post not found.</p>";
             }

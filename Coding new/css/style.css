@@ -1,7 +1,11 @@
 * {
     box-sizing: border-box;
     font-family: 'Roboto', serif;
-    font-weight: normal;
+    font-weight: normal !important;
+}
+
+strong {
+    font-weight: bold !important;
 }
 
 html, body {
@@ -601,6 +605,16 @@ input {
     height:auto;
     text-align: center;
     color: #22433d;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.home-footer-bottom {
+    width: 100%;
+    height:auto;
+    text-align: center;
+    color: #22433d;
+    margin-top: -20px;
 }
 
 /* Styling for the single post on the about page */
@@ -618,10 +632,10 @@ input {
 
 .single-post .post-content-2 {
     width: 62.5%;
-    height: 646px;
+    height: 450px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -698,11 +712,12 @@ input {
 
 .about-me-image-2 {
     flex-basis: 50%; 
+    margin-top: -40px;
 }
 
 .about-me-image-2 img{
     width: 100%; 
-    height: 646px;
+    height: 450px;
     object-fit: contain;
 }
 
@@ -753,6 +768,7 @@ input {
     color: #22433d;
 }
 
+/* Styling for the all posts page */
 .all-posts-title{
     text-align: center;
     font-family: 'Eczar', serif;
@@ -806,6 +822,66 @@ input {
     object-fit: contain;
 }
 
+/* Styling for category posts page */
+.category-titles {
+    text-align: center;
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+    font-size: 40px;
+    color: #22433d;
+    margin-bottom: 50px;
+}
+
+.category-posts {
+    width: 62.5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.category-posts .post-preview {
+    display: flex; 
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    height: 280px;
+    border: solid rgb(0, 0, 0);
+}
+
+.category-posts-info {
+    text-align: left;
+    flex-basis: 65%;
+    padding-left: 5%;
+    padding-right: 5%;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.category-posts-info h2 {
+    font-size: 40px;
+    margin-bottom: -5px;
+}
+
+.category-posts-info h2 a {
+    font-family: 'Eczar', serif;
+    font-weight: bold;
+    color: #22433D;
+}
+
+.category-posts-image {
+    height: 280px;
+    flex-basis: 35%;
+}
+
+.category-posts-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+/* Styling for the full post page */
 .full-post {
     height: 400px;
     width: 62.5%;

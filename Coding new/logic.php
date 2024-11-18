@@ -10,30 +10,43 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-//Saving draft posts into SQL TableHere 
+// Saving draft posts into SQL Table
 if (isset($_POST["submit"])) {
+    // Get the title and post content
     $title = $_POST["title"];
     $post = $_POST["post"];
+
+    // Sanitize post content
+    $post = mysqli_real_escape_string($conn, $post);
+    $post = strip_tags($post, '<p><b><i><u><strong><em><ul><ol><li><a>');
+
+
+    // Handle the image and URL inputs
     $image = $_FILES["image"]["name"];
     $url = isset($_POST["url"]) ? $_POST["url"] : null;
 
-    // Collect selected categories into an array
-    $categories = [];
+    // Get selected categories directly from $_POST['categories']
+    $categories = isset($_POST['categories']) ? $_POST['categories'] : [];
 
-    if (isset($_POST['my-life'])) { $categories[] = 'My Life'; }
-    if (isset($_POST['dutch-culture'])) { $categories[] = 'Dutch Culture'; }
-    if (isset($_POST['language'])) { $categories[] = 'Language'; }
-    if (isset($_POST['dutch-attractions'])) { $categories[] = 'Dutch Attractions'; }
-    if (isset($_POST['visa'])) { $categories[] = 'VISA'; }
-    if (isset($_POST['healthcare'])) { $categories[] = 'Healthcare'; }
-    if (isset($_POST['housing'])) { $categories[] = 'Housing'; }
-    if (isset($_POST['dutch-holidays'])) { $categories[] = 'Dutch Holidays'; }
-    if (isset($_POST['job-hunting'])) { $categories[] = 'Job Hunting'; }
-    $categoriesString = implode(', ', $categories);
+    // If categories are selected, join them into a string
+    if (!empty($categories)) {
+        $categoriesString = implode(', ', $categories);
+    } else {
+        $categoriesString = ''; // If no categories are selected, leave empty
+    }
 
-    $sql = "INSERT INTO draftposts(title, post, image, url, categories) VALUES ('$title', '$post', '$image', '$url', '$categoriesString')";
-    mysqli_query($conn, $sql);
+    // Prepare and execute the SQL query
+    $sql = "INSERT INTO draftposts (title, post, image, url, categories) VALUES ('$title', '$post', '$image', '$url', '$categoriesString')";
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "Draft saved successfully!";
+    } else {
+        echo "Error saving draft: " . mysqli_error($conn);
+    }
 }
+
+
+
 
 //Fetching draft posts from MySQL and posting in manage-posts.php table
 function fetchDraftPosts($conn) {
@@ -83,11 +96,11 @@ function fetchDraftById($conn, $id) {
 if (isset($_POST["update-draft"])) {
     $id = $_POST["id"];
     $title = $_POST["title"];
-    $post = $_POST["post"];
+    $post = mysqli_real_escape_string($conn, $_POST["post"]);  // Escape special characters in the post content
     $url = empty($_POST["url"]) ? null : $_POST["url"];
+    
     // Collect selected categories into an array
     $categories = [];
-
     if (isset($_POST['my-life'])) { $categories[] = 'My Life'; }
     if (isset($_POST['dutch-culture'])) { $categories[] = 'Dutch Culture'; }
     if (isset($_POST['language'])) { $categories[] = 'Language'; }
@@ -97,12 +110,13 @@ if (isset($_POST["update-draft"])) {
     if (isset($_POST['housing'])) { $categories[] = 'Housing'; }
     if (isset($_POST['dutch-holidays'])) { $categories[] = 'Dutch Holidays'; }
     if (isset($_POST['job-hunting'])) { $categories[] = 'Job Hunting'; }
+    
     $categoriesString = implode(', ', $categories);
 
     $imageFileName = null;
     // Check if a new image is uploaded
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-        $targetDir = "../../../Styling/";
+        $targetDir = "../../../Styling/Post_photos/";
         $imageFileName = basename($_FILES["image"]["name"]);
         $targetFile = $targetDir . $imageFileName; 
     } else {
@@ -111,18 +125,19 @@ if (isset($_POST["update-draft"])) {
         $imageFileName = $currentDraft['image'];
     }
 
+    // Update query
     $sql = "UPDATE draftposts 
-    SET title = '$title', post = '$post', image = '$imageFileName', url = '$url', categories = '$categoriesString' 
-    WHERE id = $id";
+            SET title = '$title', post = '$post', image = '$imageFileName', url = '$url', categories = '$categoriesString' 
+            WHERE id = $id";
 
     if (mysqli_query($conn, $sql)) {
-
         header("Location: manage-posts.php");
         exit();
     } else {
         echo "Error updating draft: " . mysqli_error($conn);
     }
 }
+
 
 //Fetching published posts from MySQL and posting in manage-posts.php table
 function fetchPublishedPosts($conn) {
@@ -189,7 +204,7 @@ function formatCategories($categoriesString) {
     return implode(' ', $categoryBubbles);
 }
 
-// all published posts from table onto all posts page
+// All published posts from table onto all posts page
 function postingAllPosts($conn) {
     $allpostsQuery = "SELECT * FROM publishedposts ORDER BY created_at DESC";
     $allpostsResult = mysqli_query($conn, $allpostsQuery);
@@ -203,19 +218,19 @@ function postingAllPosts($conn) {
     while ($row = mysqli_fetch_assoc($allpostsResult)) {
         $formattedDate = formatDate($row['created_at']);
 
+        // Strip HTML tags from post content and truncate it
+        $plainTextPreview = htmlspecialchars(substr(strip_tags($row['post']), 0, 150)) . "...";
+
         // Create a new post entry
         $rows .= "<div class='all-posts'>
                     <div class='post-preview'>
                         <div class='all-posts-info'>
                             <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
                             <p class='post-date'>{$formattedDate}</p>
-                            <p class='preview-text'>
-                                " . htmlspecialchars(substr($row['post'], 0, 150)) . "...
-                            </p>
                             <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
                         </div>
                         <div class='all-posts-image'>
-                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                            <img src='../Styling/Post_photos/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
                         </div>
                     </div>";
 
@@ -243,22 +258,26 @@ function postingNewestPost($conn) {
 
         $formattedDate = formatDate($row['created_at']);
 
+        // Strip HTML tags from post content and truncate it
+        $plainTextPreview = htmlspecialchars(substr(strip_tags($row['post']), 0, 150)) . "...";
+
         // Create a new post entry with the same structure and class names as in your JS
         $rows .= "<div class='post'>
                     <div class='post-preview'>
                         <div class='post-details'>
                             <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
-                            <p class='preview-text'>" . htmlspecialchars(substr($row['post'], 0, 150)) . "...</p>
+                            <p class='preview-text'>{$plainTextPreview}</p>
                             <p class='post-date'>{$formattedDate}</p>
                         </div>
                         <div class='post-image'>
-                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                            <img src='../Styling/Post_photos/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
                         </div>
                     </div>
                 </div>";
     }
     return $rows;
 }
+
 
 
 // Load 3 most recent posts into homepage
@@ -277,7 +296,7 @@ function postingRecentPosts($conn) {
         $rows .= "<div class='post'>
                     <div class='post-preview'>
                         <div class='recent-post-image'>
-                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                            <img src='../Styling/Post_photos/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
                         </div>
                         <div class='recent-post-details'>
                             <p class='post-date'>{$formattedDate}</p>
@@ -318,21 +337,27 @@ function getPostsByCategory($conn, $category) {
     $rows = '';
     while ($row = mysqli_fetch_assoc($result)) {
         $formattedDate = formatDate($row['created_at']);
-        $rows .= "<div class='all-posts'>
+        $plainTextPreview = htmlspecialchars(substr(strip_tags($row['post']), 0, 150)) . "...";
+
+        // Create a new post entry
+        $rows .= "<div class='category-posts'>
                     <div class='post-preview'>
-                        <h2><a href='post.php?id={$row['id']}'>{$row['title']}</a></h2>
-                        <p class='post-date'>{$formattedDate}</p>
-                        <p class='preview-text'>" . htmlspecialchars(substr($row['post'], 0, 150)) . "...</p>
-                        <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
-                        <div class='all-posts-image'>
-                            <img src='../Styling/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                        <div class='category-posts-info'>
+                            <h2><a href='full-post.php?id={$row['id']}'>{$row['title']}</a></h2>
+                            <p class='post-date'>{$formattedDate}</p>
+                            <div class='post-categories'>" . formatCategories($row['categories']) . "</div>
                         </div>
-                      </div>
-                    </div>";
+                        <div class='category-posts-image'>
+                            <img src='../Styling/Post_photos/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['title']) . "'>
+                        </div>
+                    </div>
+                  </div>";
     }
+
     mysqli_stmt_close($stmt);
     return $rows;
 }
+
 
 // Load resource links per category
 function linksPerCategory($conn, $category) {

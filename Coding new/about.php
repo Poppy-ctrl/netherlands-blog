@@ -65,10 +65,7 @@
                     </p>
                     <p class="preview-text">
                     My story starts during the Covid-19 lockdown with Discord (yes, slightly embarrassing). I had just graduated from university, ended a long-term relationship,
-                    and felt isolated like so many of us did. I joined Discord to connect with people online, and a few months in, I met Jeroen (or "Jack," as he’s often called by non-Dutch speakers). We hit it off 
-                    immediately. Talking to him felt natural and comfortable, and soon enough, I liked him. At the time, I told my best friend Lucy about Jack, but I wasn’t ready for a relationship. Besides, long-distance 
-                    relationships—especially between countries—don’t work, right? But we had such a great time just chatting over video calls and texting all day (sorry to my first corporate job—I was texting my e-boyfriend 
-                    in the lab instead of analysing samples). 
+                    and felt isolated like so many of us did. I joined Discord to connect with people online, and a few months in, I met Jeroen (or "Jack," as he’s often called by non-Dutch speakers).
                     </p>
                 </div>
                 <div class="about-me-image-2">
@@ -76,6 +73,12 @@
                 </div>
             </div>
             <div class="third-about-post-preview">
+                <p class="preview-text">
+                    We hit it off 
+                    immediately. Talking to him felt natural and comfortable, and soon enough, I liked him. At the time, I told my best friend Lucy about Jack, but I wasn’t ready for a relationship. Besides, long-distance 
+                    relationships—especially between countries—don’t work, right? But we had such a great time just chatting over video calls and texting all day (sorry to my first corporate job—I was texting my e-boyfriend 
+                    in the lab instead of analysing samples). 
+                </p>
                 <p class="preview-text">
                     After six months, Jeroen flew to the UK to meet me in person, and it felt like we had known each other for years. Since then, we’ve been dating long-distance, 
                     shuttling between the UK and the Netherlands, learning each other’s cultures, and growing together as a couple. After nearly three years, in 2024, I decided it was time to move to the Netherlands. The 
